@@ -24,3 +24,11 @@ Route::get('/Login', function () {
 Route::get('/Inscription', function () {
     return view('Inscription');
 });
+
+Route::get('/DashMed', function () {
+    return view('Medecin/DashMed');
+});
+
+Route::get('/DashHospi', function () {
+    return view('Hôpital/DashHospi');
+});

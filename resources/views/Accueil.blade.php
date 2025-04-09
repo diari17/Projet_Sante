@@ -457,7 +457,7 @@
             
             <div class="nav-links">
                 <a href="#">Accueil</a>
-                <a href="#features">Spécialités</a>
+                <a href="#specialties">Spécialités</a>
                 <a href="#how-it-works">Comment ça marche?</a>
                 <a href="#contact">Contact</a>
             </div>
@@ -572,7 +572,7 @@
     <!-- How It Works -->
     <section class="how-it-works" id="how-it-works">
         <div class="section-title">
-            <h3>Comment fonctionne XëtConnect ?</h3>
+            <h1>Comment fonctionne XëtConnect ?</h1>
             <p>En quelques étapes simples, optimisez votre activité chirurgicale</p>
             <br>
         </div>
