@@ -210,56 +210,6 @@
             font-size: 0.9rem;
         }
         
-        /* .availability-container {
-            background: white;
-            border-radius: 0.8rem;
-            padding: 1.5rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-        }
-        
-        .availability-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-        }
-        
-        .availability-calendar {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 0.5rem;
-        }
-        
-        .calendar-day-header {
-            text-align: center;
-            font-weight: 500;
-            color: var(--gray);
-            padding: 0.5rem;
-            font-size: 0.9rem;
-        }
-        
-        .calendar-day {
-            aspect-ratio: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 0.5rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            background-color: var(--light);
-        }
-        
-        .calendar-day:hover {
-            background-color: var(--light-gray);
-        }
-        
-        .calendar-day.unavailable {
-            background-color: rgba(239, 68, 68, 0.1);
-            color: var(--danger);
-            text-decoration: line-through;
-        } */
-
-
 
         .candidatures-container {
             background: white;
@@ -498,9 +448,15 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="interventions.html">
-                        <i class="fas fa-procedures"></i>
+                    <a href="ListInterv">
+                        <i class="fas fa-search"></i>
                         <span>Rechercher interventions</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="MyCandidatures">
+                        <i class="fas fa-share-square"></i>
+                        <span>Mes Candidatures</span>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -509,75 +465,30 @@
                         <span>Mes propositions</span>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="disponibilites.html">
-                        <i class="fas fa-calendar-times"></i>
-                        <span>Gérer mes indisponibilités</span>
-                    </a>
-                </li>
             </ul>
         </aside>
         
         <!-- Dashboard Content -->
         <main class="main-content">
             <div class="dashboard-actions">
-                <a href="interventions.html" class="action-card">
+                <a href="ListInterv" class="action-card">
                     <h3><i class="fas fa-search"></i> Rechercher interventions</h3>
                     <p>Parcourez les interventions disponibles correspondant à votre spécialité</p>
                 </a>
                 
-                <a href="propositions.html" class="action-card">
+                <a href="MyPropositions" class="action-card">
                     <h3><i class="fas fa-envelope"></i> Voir mes propositions</h3>
                     <p>Consultez les interventions que les hôpitaux vous ont proposées</p>
                 </a>
                 
-                <a href="disponibilites.html" class="action-card">
-                    <h3><i class="fas fa-calendar-times"></i> Déclarer disponibilité</h3>
-                    <p>Indiquez vos périodes de disponibilité</p>
+                <a href="MyCandidatures" class="action-card">
+                    <h3><i class="fas fa-share-square"></i> Voir mes candidatures</h3>
+                    <p>Consulter l'état de mes candidatures</p>
                 </a>
             </div>
-            
-            <!-- <div class="availability-container">
-                <div class="availability-header">
-                    <h3>Mes indisponibilités ce mois</h3>
-                </div>
-                <div class="availability-calendar">
-                    <div class="calendar-day-header">Lun</div>
-                    <div class="calendar-day-header">Mar</div>
-                    <div class="calendar-day-header">Mer</div>
-                    <div class="calendar-day-header">Jeu</div>
-                    <div class="calendar-day-header">Ven</div>
-                    <div class="calendar-day-header">Sam</div>
-                    <div class="calendar-day-header">Dim</div>
-                    
-                     Exemple de jours du mois 
-                    <div class="calendar-day">26</div>
-                    <div class="calendar-day">27</div>
-                    <div class="calendar-day">28</div>
-                    <div class="calendar-day">29</div>
-                    <div class="calendar-day">30</div>
-                    <div class="calendar-day">1</div>
-                    <div class="calendar-day">2</div>
-                    
-                    <div class="calendar-day">3</div>
-                    <div class="calendar-day">4</div>
-                    <div class="calendar-day ">5</div>
-                    <div class="calendar-day">6</div>
-                    <div class="calendar-day">7</div>
-                    <div class="calendar-day">8</div>
-                    <div class="calendar-day">9</div>
-                    
-                    <div class="calendar-day">10</div>
-                    <div class="calendar-day">11</div>
-                    <div class="calendar-day">12</div>
-                    <div class="calendar-day ">13</div>
-                    <div class="calendar-day">14</div>
-                    <div class="calendar-day">15</div>
-                    <div class="calendar-day">16</div>
-                </div> -->
 
             
-                <!-- Remplacement du calendrier par la liste des candidatures -->
+            <!-- doit contenir les n premieres candidatures -->
             <div class="candidatures-container">
                 <h3>Mes candidatures récentes</h3>
                 
@@ -624,7 +535,7 @@
                 </div>
                 
                 <div style="text-align: center; margin-top: 1rem;">
-                    <a href="candidatures.html" style="color: var(--primary); text-decoration: none;">
+                    <a href="MyCandidatures" style="color: var(--primary); text-decoration: none;">
                         Voir toutes mes candidatures <i class="fas fa-arrow-right"></i>
                     </a>
                 </div>

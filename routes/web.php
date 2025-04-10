@@ -25,10 +25,42 @@ Route::get('/Inscription', function () {
     return view('Inscription');
 });
 
+
+//Route Medecin
 Route::get('/DashMed', function () {
     return view('Medecin/DashMed');
 });
 
+Route::get('/MyCandidatures', function () {
+    return view('Medecin/MyCandidatures');
+});
+
+Route::get('/ListInterv', function () {
+    return view('Medecin/ListInterv');
+});
+
+Route::get('/MyPropositions', function () {
+    return view('Medecin/MyPropositions');
+});
+
+
+//Route Hospi
 Route::get('/DashHospi', function () {
     return view('Hôpital/DashHospi');
+});
+
+Route::get('/CreerInterv', function () {
+    return view('Hôpital/CreerInterv');
+});
+
+Route::get('/ListMed', function () {
+    return view('Hôpital/ListMed');
+});
+
+Route::get('/ListCandidatures', function () {
+    return view('Hôpital/ListCandidatures');
+});
+
+Route::get('/SendPropositions', function () {
+    return view('Hôpital/SendPropositions');
 });

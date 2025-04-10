@@ -465,21 +465,27 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="creer-intervention.html">
+                    <a href="CreerInterv">
                         <i class="fas fa-plus-circle"></i>
                         <span>Créer une intervention</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="rechercher-chirurgien.html">
+                    <a href="ListMed">
                         <i class="fas fa-search"></i>
-                        <span>Rechercher un chirurgien</span>
+                        <span>Rechercher un médecin/chirurgien</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="candidatures.html">
+                    <a href="ListCandidatures">
                         <i class="fas fa-envelope"></i>
                         <span>Candidatures reçues</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="SendPropositions">
+                        <i class="fas fa-share-square"></i>
+                        <span>Propositions envoyées</span>
                     </a>
                 </li>
             </ul>
@@ -488,13 +494,13 @@
         <!-- Dashboard Content -->
         <main class="main-content">
             <div class="dashboard-actions">
-                <a href="creer-intervention.html" class="action-card">
+                <a href="CreerInterv" class="action-card">
                     <h3><i class="fas fa-plus-circle"></i> Créer une intervention</h3>
                     <p>Publiez une nouvelle demande d'intervention chirurgicale</p>
                 </a>
                 
-                <a href="rechercher-chirurgien.html" class="action-card">
-                    <h3><i class="fas fa-search"></i> Rechercher un chirurgien</h3>
+                <a href="ListMed" class="action-card">
+                    <h3><i class="fas fa-search"></i> Rechercher un médecin/chirurgien</h3>
                     <p>Trouvez des chirurgiens par spécialité et disponibilité</p>
                 </a>
                 
@@ -507,7 +513,7 @@
             <div class="interventions-container">
                 <div class="interventions-header">
                     <h3>Mes interventions récentes</h3>
-                    <a href="interventions.html" class="btn btn-outline">Voir toutes</a>
+                    <a href="CreerInterv" class="btn btn-outline">Voir toutes</a>
                 </div>
                 
                 <div class="intervention-item">
@@ -531,7 +537,7 @@
                     <div class="intervention-info">
                         <h4>Arthroscopie genou gauche - Mme. Lambert</h4>
                         <div class="intervention-meta">
-                            <span><i class="fas fa-calendar-alt"></i> 17/07/2023 - 14:00</span>
+                            <span><i class="fas fa-calendar-alt"></i> 17/07/2023 - 01:30</span>
                             <span><i class="fas fa-user-md"></i> Orthopédie</span>
                             <span><i class="fas fa-clock"></i> 1h30 estimées</span>
                         </div>
@@ -550,7 +556,7 @@
                         <div class="intervention-meta">
                             <span><i class="fas fa-calendar-alt"></i> 20/07/2023 - 09:00</span>
                             <span><i class="fas fa-user-md"></i> Chirurgie générale</span>
-                            <span><i class="fas fa-clock"></i> 1h estimée</span>
+                            <span><i class="fas fa-clock"></i> 3h estimée</span>
                         </div>
                         <span class="intervention-status status-non-attribuee">Non attribuée</span>
                         <p>Aucune candidature</p>
@@ -566,7 +572,7 @@
     
     <!-- Footer -->
     <footer>
-        <p>&copy; 2023 XëtConnect. Tous droits réservés.</p>
+        <p>&copy; 2025 XëtConnect. Tous droits réservés.</p>
     </footer>
     
     <!-- Modal Paramètres du compte -->
