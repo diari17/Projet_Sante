@@ -265,7 +265,7 @@
                 <p>Sélectionnez votre profil et complétez les informations requises</p>
             </div>
             
-            <form id="registrationForm">
+            
                 <!-- Sélection du rôle -->
                 <div class="role-selection">
                     <div class="role-option">
@@ -284,43 +284,44 @@
                         </label>
                     </div>
                 </div>
-                
+            <form id="registrationForm" method="POST" action="traitementInsChirurgien">
+                @csrf
                 <!-- Champs spécifiques chirurgien -->
                 <div id="surgeonFields" class="specific-fields">
                     <div class="form-row">
                         <div class="form-group">
                             <label for="lastname">Nom</label>
-                            <input type="text" id="lastname" class="form-control" placeholder="Votre nom" required>
+                            <input type="text" id="lastname" name="nom" class="form-control" placeholder="Votre nom" required>
                         </div>
                         
                         <div class="form-group">
                             <label for="firstname">Prénom</label>
-                            <input type="text" id="firstname" class="form-control" placeholder="Votre prénom" required>
+                            <input type="text" id="firstname" name="prenom" class="form-control" placeholder="Votre prénom" required>
                         </div>
                     </div>
                     
                     <div class="form-group">
                         <label for="email_surgeon">Email professionnel</label>
-                        <input type="email" id="email_surgeon" class="form-control" placeholder="exemple@domaine.com" required>
+                        <input type="email" id="email_surgeon" name="email" class="form-control" placeholder="exemple@domaine.com" required>
                         <small class="help-text">Utilisez votre email professionnel (hôpital, clinique, etc.)</small>
                     </div>
                     
                     <div class="form-row">
                         <div class="form-group">
                             <label for="phone_surgeon">Téléphone professionnel</label>
-                            <input type="tel" id="phone_surgeon" class="form-control" placeholder="+xx x xx xx xx xx" required>
+                            <input type="tel" name="telephone" id="phone_surgeon" class="form-control" placeholder="+xx x xx xx xx xx" required>
                         </div>
                         
                         <div class="form-group">
                             <label for="experience">Années d'expérience</label>
-                            <input type="number" id="experience" class="form-control" placeholder="5" min="0" max="50" required>
+                            <input type="number" name="exp" id="experience" class="form-control" placeholder="5" min="0" max="50" required>
                         </div>
                     </div>
                     
                     <div class="form-row">
                         <div class="form-group">
                             <label for="specialite">Spécialité principale</label>
-                            <select id="specialite" class="form-control" required>
+                            <select id="specialite" name="specialite" class="form-control" required>
                                 <option value="">Sélectionnez votre spécialité</option>
                                 <option value="chirurgie_generale">Chirurgie générale</option>
                                 <option value="chirurgie_digestive">Chirurgie digestive</option>
@@ -361,23 +362,25 @@
                         
                         <div class="form-group">
                             <label for="ville">Ville/Région d'exercice</label>
-                            <input type="text" id="ville" class="form-control" placeholder="Dakar, Sénégal" required>
+                            <input type="text" name="region" id="ville" class="form-control" placeholder="Dakar, Sénégal" required>
                         </div>
                     </div>
                     
                     <div class="form-row">
                         <div class="form-group">
                             <label for="password_surgeon">Mot de passe</label>
-                            <input type="password" id="password_surgeon" class="form-control" placeholder="••••••••" minlength="8" required>
+                            <input type="password" name="password" id="password_surgeon" class="form-control" placeholder="••••••••" minlength="8" required>
                         </div>
                         
                         <div class="form-group">
                             <label for="confirm_password_surgeon">Confirmation</label>
-                            <input type="password" id="confirm_password_surgeon" class="form-control" placeholder="••••••••" minlength="8" required>
+                            <input type="password" name="password2" id="confirm_password_surgeon" class="form-control" placeholder="••••••••" minlength="8" required>
                         </div>
                     </div>
+                    <button type="submit" class="btn btn-primary">Créer mon compte</button>
+
                 </div>
-                
+            </form>
                 <!-- Champs spécifiques hôpital -->
                 <div id="hospitalFields" class="specific-fields">
                     <div class="form-group">
@@ -442,14 +445,16 @@
                             <input type="password" id="confirm_password_hopital" class="form-control" placeholder="••••••••" minlength="8" required>
                         </div>
                     </div>
+                    <button type="submit" class="btn btn-primary">Créer mon compte</button>
+
                 </div>
                 
-                <button type="submit" class="btn btn-primary">Créer mon compte</button>
+                {{-- <button type="submit" class="btn btn-primary">Créer mon compte</button> --}}
                 
                 <div class="login-link">
                     Vous avez déjà un compte ? <a href="Login">Connectez-vous</a>
                 </div>
-            </form>
+            {{-- </form> --}}
         </div>
     </main>
 
@@ -479,79 +484,80 @@
                     }
                 });
             });
-            
-            // Validation des mots de passe identiques
-            function validatePasswords() {
-                const role = document.querySelector('input[name="role"]:checked').value;
-                const password = role === 'chirurgien' 
-                    ? document.getElementById('password_surgeon').value 
-                    : document.getElementById('password_hopital').value;
-                const confirmPassword = role === 'chirurgien' 
-                    ? document.getElementById('confirm_password_surgeon').value 
-                    : document.getElementById('confirm_password_hopital').value;
-                
-                if (password !== confirmPassword) {
-                    alert('Les mots de passe ne correspondent pas');
-                    return false;
-                }
-                return true;
-            }
-            
-            // Gestion de la soumission du formulaire
-            form.addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                if (!validatePasswords()) return;
-                
-                // Récupération des données du formulaire
-                const role = document.querySelector('input[name="role"]:checked').value;
-                const formData = {
-                    role: role,
-                    // Champs communs
-                    email: role === 'chirurgien' 
-                        ? document.getElementById('email_surgeon').value 
-                        : document.getElementById('email_hopital').value,
-                    phone: role === 'chirurgien' 
-                        ? document.getElementById('phone_surgeon').value 
-                        : document.getElementById('phone_hopital').value,
-                    password: role === 'chirurgien' 
-                        ? document.getElementById('password_surgeon').value 
-                        : document.getElementById('password_hopital').value,
-                    
-                    // Champs chirurgien
-                    ...(role === 'chirurgien' && {
-                        lastname: document.getElementById('lastname').value,
-                        firstname: document.getElementById('firstname').value,
-                        specialite: document.getElementById('specialite').value,
-                        experience: document.getElementById('experience').value,
-                        ville: document.getElementById('ville').value
-                    }),
-                    
-                    // Champs hôpital
-                    ...(role === 'hopital' && {
-                        nom_hopital: document.getElementById('nom_hopital').value,
-                        statut: document.getElementById('statut').value,
-                        adresse: document.getElementById('adresse_hopital').value,
-                        region: document.getElementById('region').value,
-                        responsable_nom: document.getElementById('responsable_nom').value,
-                        responsable_fonction: document.getElementById('responsable_fonction').value
-                    })
-                };
-                
-                // Ici, vous enverriez les données à votre backend
-                console.log('Données du formulaire:', formData);
-                
-                // Simulation d'envoi réussi
-                alert('Inscription réussie ! Redirection vers le tableau de bord...');
-                
-                // Redirection vers le tableau de bord approprié
-                // if (role === 'chirurgien') {
-                //     window.location.href = 'dashboard-chirurgien.html';
-                // } else {
-                //     window.location.href = 'dashboard-hopital.html';
-                // }
-            });
         });
+            
+        //     // Validation des mots de passe identiques
+        //     function validatePasswords() {
+        //         const role = document.querySelector('input[name="role"]:checked').value;
+        //         const password = role === 'chirurgien' 
+        //             ? document.getElementById('password_surgeon').value 
+        //             : document.getElementById('password_hopital').value;
+        //         const confirmPassword = role === 'chirurgien' 
+        //             ? document.getElementById('confirm_password_surgeon').value 
+        //             : document.getElementById('confirm_password_hopital').value;
+                
+        //         if (password !== confirmPassword) {
+        //             alert('Les mots de passe ne correspondent pas');
+        //             return false;
+        //         }
+        //         return true;
+        //     }
+            
+        //     // Gestion de la soumission du formulaire
+        //     form.addEventListener('submit', function(e) {
+        //         e.preventDefault();
+                
+        //         if (!validatePasswords()) return;
+                
+        //         // Récupération des données du formulaire
+        //         const role = document.querySelector('input[name="role"]:checked').value;
+        //         const formData = {
+        //             role: role,
+        //             // Champs communs
+        //             email: role === 'chirurgien' 
+        //                 ? document.getElementById('email_surgeon').value 
+        //                 : document.getElementById('email_hopital').value,
+        //             phone: role === 'chirurgien' 
+        //                 ? document.getElementById('phone_surgeon').value 
+        //                 : document.getElementById('phone_hopital').value,
+        //             password: role === 'chirurgien' 
+        //                 ? document.getElementById('password_surgeon').value 
+        //                 : document.getElementById('password_hopital').value,
+                    
+        //             // Champs chirurgien
+        //             ...(role === 'chirurgien' && {
+        //                 lastname: document.getElementById('lastname').value,
+        //                 firstname: document.getElementById('firstname').value,
+        //                 specialite: document.getElementById('specialite').value,
+        //                 experience: document.getElementById('experience').value,
+        //                 ville: document.getElementById('ville').value
+        //             }),
+                    
+        //             // Champs hôpital
+        //             ...(role === 'hopital' && {
+        //                 nom_hopital: document.getElementById('nom_hopital').value,
+        //                 statut: document.getElementById('statut').value,
+        //                 adresse: document.getElementById('adresse_hopital').value,
+        //                 region: document.getElementById('region').value,
+        //                 responsable_nom: document.getElementById('responsable_nom').value,
+        //                 responsable_fonction: document.getElementById('responsable_fonction').value
+        //             })
+        //         };
+                
+        //         // Ici, vous enverriez les données à votre backend
+        //         console.log('Données du formulaire:', formData);
+                
+        //         // Simulation d'envoi réussi
+        //         alert('Inscription réussie ! Redirection vers le tableau de bord...');
+                
+        //         // Redirection vers le tableau de bord approprié
+        //         // if (role === 'chirurgien') {
+        //         //     window.location.href = 'dashboard-chirurgien.html';
+        //         // } else {
+        //         //     window.location.href = 'dashboard-hopital.html';
+        //         // }
+        //     });
+        // // });
     </script>
 </body>
 </html>

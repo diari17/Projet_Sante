@@ -40,6 +40,10 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'chirurgien' => [
+            'driver' => 'session',
+            'provider' => 'chirurgiens',
+        ],
     ],
 
     /*
@@ -65,10 +69,10 @@ return [
             'model' => App\Models\User::class,
         ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        'chirurgiens' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Chirurgien::class,
+        ],
     ],
 
     /*

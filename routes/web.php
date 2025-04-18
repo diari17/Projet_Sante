@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\PostController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,14 +17,17 @@ Route::get('/', function () {
     return view('Accueil');
 });
 
-Route::get('/Login', function () {
-    return view('Login');
-});
+// Route::get('/Login', function () {
+//     return view('Login');
+// });
+Route::get('/Login', [PostController::class, 'Login']);
 
-Route::get('/Inscription', function () {
-    return view('Inscription');
-});
+Route::post('traitementConnexion', [PostController::class, 'traitementConnexion']);
 
+
+Route::get('/Inscription', [PostController::class , 'Inscription'] );
+
+Route::post('traitementInsChirurgien', [PostController::class, 'traitementInsChirurgien']);
 
 //Route Medecin
 Route::get('/DashMed', function () {

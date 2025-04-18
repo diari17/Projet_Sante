@@ -338,8 +338,9 @@
         </div>
         
         <!-- Right Side - Login Form -->
-        <div class="login-form-container">
-            <form class="login-form">
+        <div class="login-form-container" >
+            <form class="login-form" method="POST" action="traitementConnexion">
+                @csrf
                 <div class="form-header">
                     <h2>Connectez-vous à votre compte</h2>
                     <p>Entrez vos identifiants pour accéder à votre espace</p>
@@ -347,12 +348,12 @@
                 
                 <div class="form-group">
                     <label for="email">Adresse email</label>
-                    <input type="email" id="email" class="form-control" placeholder="votre@email.com" required>
+                    <input type="email" id="email" name="email" class="form-control" placeholder="votre@email.com" required>
                 </div>
                 
                 <div class="form-group">
                     <label for="password">Mot de passe</label>
-                    <input type="password" id="password" class="form-control" placeholder="••••••••" required>
+                    <input type="password" name="password" id="password" class="form-control" placeholder="••••••••" required>
                     <i class="fas fa-eye password-toggle" id="togglePassword"></i>
                 </div>
                 
@@ -375,7 +376,7 @@
     <script>
         // Toggle password visibility
         const togglePassword = document.querySelector('#togglePassword');
-        const password = document.querySelector('#password');
+        // const password = document.querySelector('#password');
         
         togglePassword.addEventListener('click', function() {
             const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
@@ -383,13 +384,13 @@
             this.classList.toggle('fa-eye-slash');
         });
         
-        // Form submission (would be replaced with actual auth logic)
-        const form = document.querySelector('.login-form');
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            // Add your authentication logic here
-            console.log('Form submitted');
-        });
+        // // Form submission (would be replaced with actual auth logic)
+        // const form = document.querySelector('.login-form');
+        // form.addEventListener('submit', function(e) {
+        //     e.preventDefault();
+        //     // Add your authentication logic here
+        //     console.log('Form submitted');
+        // });
     </script>
 </body>
 </html>
