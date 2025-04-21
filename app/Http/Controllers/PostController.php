@@ -18,14 +18,16 @@ class PostController extends Controller
 
     public function traitementInsChirurgien(Request $request){
         $request->validate([
-            'nom',
-            'prenom',
-            'email',
-            'telephone',
-            'exp',
-            'region',
-            'password',
-            'specialite'
+            'nom'=> 'required',
+            'prenom' => 'required',
+            'email' => 'required|email',
+            'telephone' => 'required',
+            'exp' => 'required',
+            'region' => 'required',
+            'specialite' => 'required',
+            'password' => 'required|confirmed', [
+                'password.confirmed' => 'Les mots de passe ne sont pas identiques.'
+            ]
         ]);
 
         $nom = $request->nom;
@@ -52,6 +54,8 @@ class PostController extends Controller
 
         // dd($chirurgien);
         $chirurgien->save();
+
+        return view('Login');
 
 
     }

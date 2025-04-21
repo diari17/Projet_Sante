@@ -7,10 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 // use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-
+use Intervention;
 class Chirurgien extends Authenticatable
 {
     use Notifiable;
+
+    protected $primaryKey = 'idChirurgien';
     protected $fillable = [
         'nom',
         'prenom',
@@ -25,5 +27,15 @@ class Chirurgien extends Authenticatable
     protected $hidden = [
         'password',
     ];
-    
+    public function candidatures()
+    {
+        return $this->hasMany(Candidater::class, 'idChirurgien');
+    }
+
+    public function interventions()
+    {
+        return $this->belongsToMany(Intervention::class, 'candidaters', 'idChirurgien', 'idIntervention')
+                    ->withPivot(['date', 'etat', 'tarif'])
+                    ->withTimestamps();
+    }
 }

@@ -263,6 +263,9 @@
             <div class="form-header">
                 <h2>Créez votre compte</h2>
                 <p>Sélectionnez votre profil et complétez les informations requises</p>
+                @if ($errors->has('password'))
+                    <span class="text-danger">{{ $errors->first('password') }}</span>
+                @endif
             </div>
             
             
@@ -374,7 +377,7 @@
                         
                         <div class="form-group">
                             <label for="confirm_password_surgeon">Confirmation</label>
-                            <input type="password" name="password2" id="confirm_password_surgeon" class="form-control" placeholder="••••••••" minlength="8" required>
+                            <input type="password" name="password_confirmation" id="confirm_password_surgeon" class="form-control" placeholder="••••••••" minlength="8" required>
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary">Créer mon compte</button>
