@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ChirurgienController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 /*
@@ -20,14 +21,14 @@ Route::get('/', function () {
 // Route::get('/Login', function () {
 //     return view('Login');
 // });
-Route::get('/Login', [PostController::class, 'Login']);
+Route::get('/Login', [ChirurgienController::class, 'Login']);
 
-Route::post('traitementConnexion', [PostController::class, 'traitementConnexion']);
+Route::post('traitementConnexion', [ChirurgienController::class, 'traitementConnexion']);
 
 
-Route::get('/Inscription', [PostController::class , 'Inscription'] );
+Route::get('/Inscription', [ChirurgienController::class , 'Inscription'] );
 
-Route::post('traitementInsChirurgien', [PostController::class, 'traitementInsChirurgien']);
+Route::post('traitementInsChirurgien', [ChirurgienController::class, 'traitementInsChirurgien']);
 
 //Route Medecin
 Route::get('/DashMed', function () {
@@ -49,21 +50,22 @@ Route::get('/MyPropositions', function () {
 
 //Route Hospi
 Route::get('/DashHospi', function () {
-    return view('Hôpital/DashHospi');
+    return view('Hopital/DashHospi');
 });
 
 Route::get('/CreerInterv', function () {
-    return view('Hôpital/CreerInterv');
+    return view('Hopital/CreerInterv');
 });
 
-Route::get('/ListMed', function () {
-    return view('Hôpital/ListMed');
-});
+// Route::get('/ListMed', function () {
+//     return view('Hopital/ListMed');
+// });
+Route::get('/ListMed', [PostController::class, 'ListMed'  ]);
 
 Route::get('/ListCandidatures', function () {
-    return view('Hôpital/ListCandidatures');
+    return view('Hopital/ListCandidatures');
 });
 
 Route::get('/SendPropositions', function () {
-    return view('Hôpital/SendPropositions');
+    return view('Hopital/SendPropositions');
 });

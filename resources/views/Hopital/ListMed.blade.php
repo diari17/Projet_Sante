@@ -738,7 +738,86 @@
             
             <!-- Liste des médecins -->
             <div class="doctors-list" id="doctorsContainer">
-                <!-- Les médecins seront chargés ici dynamiquement -->
+@foreach ($chirurgien as $chirurgien)
+<div class="profile-header">
+    <img src="" class="profile-avatar">
+    
+    <div class="profile-info">
+        <h2 class="profile-name">Dr. {{ $chirurgien->nom }} {{ $chirurgien->prenom }}</h2>
+        <p class="profile-specialty">{{ $chirurgien->specialite }}</p>
+        
+        <div class="profile-meta">
+            <span><i class="fas fa-map-marker-alt"></i> {{ $chirurgien->region }}</span>
+            <span><i class="fas fa-briefcase"></i> {{ $chirurgien->exp }} ans d'expérience</span>
+        </div>
+        
+        <div class="profile-meta">
+            <span><i class="fas fa-envelope"></i> {{ $chirurgien->email }}</span>
+            <span><i class="fas fa-phone"></i> {{ $chirurgien->numero }}</span>
+        </div>
+    </div>
+</div> 
+{{-- <div class="profile-section">
+    <h3 class="profile-section-title"><i class="fas fa-info-circle"></i> Informations générales</h3>
+    
+    <div class="profile-details">
+        <div class="detail-item">
+            <div class="detail-label">Adresse professionnelle</div>
+            <div class="detail-value">{{ $chirurgien->addresse }}</div>
+        </div>
+        
+        <div class="detail-item">
+            <div class="detail-label">Disponibilités</div>
+            <div class="detail-value">
+                <ul style="margin: 0; padding-left: 1.2rem;">
+                    ${doctor.disponibilites.map(d => `<li>${d}</li>`).join('')}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div> --}}
+
+{{-- <div class="profile-section">
+    <h3 class="profile-section-title"><i class="fas fa-graduation-cap"></i> Parcours professionnel</h3>
+    <div class="detail-value">${doctor.cv}</div>
+</div>
+
+<div class="profile-section">
+    <h3 class="profile-section-title"><i class="fas fa-certificate"></i> Diplômes</h3>
+    
+    <div class="documents-list">
+        ${doctor.diplomes.map(diplome => `
+            <div class="document-item">
+                <i class="fas fa-file-alt document-icon"></i>
+                <div>${diplome}</div>
+            </div>
+        `).join('')}
+    </div>
+</div>
+
+<div class="profile-section">
+    <h3 class="profile-section-title"><i class="fas fa-award"></i> Formations complémentaires</h3>
+    
+    <div class="documents-list">
+        ${doctor.formations.map(formation => `
+            <div class="document-item">
+                <i class="fas fa-certificate document-icon"></i>
+                <div>${formation}</div>
+            </div>
+        `).join('')}
+    </div>
+</div> --}}
+
+<div class="profile-actions" style="margin-top: 2rem; display: flex; justify-content: flex-end;">
+    <button class="btn btn-primary" id="inviteDoctorBtn" data-id="${doctor.id}">
+        <i class="fas fa-calendar-plus"></i> Inviter pour une intervention
+    </button>
+    <button class="btn btn-outline" id="backToListBtn" style="margin-right: 1rem;">
+        <i class="fas fa-arrow-left"></i> Retour à la liste
+    </button>
+</div>
+<br>
+@endforeach
             </div>
         </main>
     </div>
@@ -787,7 +866,7 @@
         </div>
     </div>
     
-    <script>
+    {{-- <script>
         // Données simulées de médecins
         const doctors = [
             {
@@ -991,104 +1070,104 @@
         }
         
         // Afficher le profil complet d'un médecin
-        function showDoctorProfile(id) {
-            const doctor = doctors.find(d => d.id === id);
-            if (!doctor) return;
+        // function showDoctorProfile(id) {
+        //     const doctor = doctors.find(d => d.id === id);
+        //     if (!doctor) return;
             
-            doctorProfileContent.innerHTML = `
-                <div class="profile-header">
-                    <img src="${doctor.avatar}" alt="${doctor.firstName} ${doctor.lastName}" class="profile-avatar">
+        //     doctorProfileContent.innerHTML = `
+        //         <div class="profile-header">
+        //             <img src="${doctor.avatar}" alt="${doctor.firstName} ${doctor.lastName}" class="profile-avatar">
                     
-                    <div class="profile-info">
-                        <h2 class="profile-name">Dr. ${doctor.firstName} ${doctor.lastName}</h2>
-                        <p class="profile-specialty">${doctor.specialty} - ${doctor.specialtyDetails}</p>
+        //             <div class="profile-info">
+        //                 <h2 class="profile-name">Dr. ${doctor.firstName} ${doctor.lastName}</h2>
+        //                 <p class="profile-specialty">${doctor.specialty} - ${doctor.specialtyDetails}</p>
                         
-                        <div class="profile-meta">
-                            <span><i class="fas fa-map-marker-alt"></i> ${doctor.location}</span>
-                            <span><i class="fas fa-briefcase"></i> ${doctor.experience} ans d'expérience</span>
-                        </div>
+        //                 <div class="profile-meta">
+        //                     <span><i class="fas fa-map-marker-alt"></i> ${doctor.location}</span>
+        //                     <span><i class="fas fa-briefcase"></i> ${doctor.experience} ans d'expérience</span>
+        //                 </div>
                         
-                        <div class="profile-meta">
-                            <span><i class="fas fa-envelope"></i> ${doctor.email}</span>
-                            <span><i class="fas fa-phone"></i> ${doctor.phone}</span>
-                        </div>
-                    </div>
-                </div>
+        //                 <div class="profile-meta">
+        //                     <span><i class="fas fa-envelope"></i> ${doctor.email}</span>
+        //                     <span><i class="fas fa-phone"></i> ${doctor.phone}</span>
+        //                 </div>
+        //             </div>
+        //         </div>
                 
-                <div class="profile-section">
-                    <h3 class="profile-section-title"><i class="fas fa-info-circle"></i> Informations générales</h3>
+        //         <div class="profile-section">
+        //             <h3 class="profile-section-title"><i class="fas fa-info-circle"></i> Informations générales</h3>
                     
-                    <div class="profile-details">
-                        <div class="detail-item">
-                            <div class="detail-label">Adresse professionnelle</div>
-                            <div class="detail-value">${doctor.address}</div>
-                        </div>
+        //             <div class="profile-details">
+        //                 <div class="detail-item">
+        //                     <div class="detail-label">Adresse professionnelle</div>
+        //                     <div class="detail-value">${doctor.address}</div>
+        //                 </div>
                         
-                        <div class="detail-item">
-                            <div class="detail-label">Disponibilités</div>
-                            <div class="detail-value">
-                                <ul style="margin: 0; padding-left: 1.2rem;">
-                                    ${doctor.disponibilites.map(d => `<li>${d}</li>`).join('')}
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        //                 <div class="detail-item">
+        //                     <div class="detail-label">Disponibilités</div>
+        //                     <div class="detail-value">
+        //                         <ul style="margin: 0; padding-left: 1.2rem;">
+        //                             ${doctor.disponibilites.map(d => `<li>${d}</li>`).join('')}
+        //                         </ul>
+        //                     </div>
+        //                 </div>
+        //             </div>
+        //         </div>
                 
-                <div class="profile-section">
-                    <h3 class="profile-section-title"><i class="fas fa-graduation-cap"></i> Parcours professionnel</h3>
-                    <div class="detail-value">${doctor.cv}</div>
-                </div>
+        //         <div class="profile-section">
+        //             <h3 class="profile-section-title"><i class="fas fa-graduation-cap"></i> Parcours professionnel</h3>
+        //             <div class="detail-value">${doctor.cv}</div>
+        //         </div>
                 
-                <div class="profile-section">
-                    <h3 class="profile-section-title"><i class="fas fa-certificate"></i> Diplômes</h3>
+        //         <div class="profile-section">
+        //             <h3 class="profile-section-title"><i class="fas fa-certificate"></i> Diplômes</h3>
                     
-                    <div class="documents-list">
-                        ${doctor.diplomes.map(diplome => `
-                            <div class="document-item">
-                                <i class="fas fa-file-alt document-icon"></i>
-                                <div>${diplome}</div>
-                            </div>
-                        `).join('')}
-                    </div>
-                </div>
+        //             <div class="documents-list">
+        //                 ${doctor.diplomes.map(diplome => `
+        //                     <div class="document-item">
+        //                         <i class="fas fa-file-alt document-icon"></i>
+        //                         <div>${diplome}</div>
+        //                     </div>
+        //                 `).join('')}
+        //             </div>
+        //         </div>
                 
-                <div class="profile-section">
-                    <h3 class="profile-section-title"><i class="fas fa-award"></i> Formations complémentaires</h3>
+        //         <div class="profile-section">
+        //             <h3 class="profile-section-title"><i class="fas fa-award"></i> Formations complémentaires</h3>
                     
-                    <div class="documents-list">
-                        ${doctor.formations.map(formation => `
-                            <div class="document-item">
-                                <i class="fas fa-certificate document-icon"></i>
-                                <div>${formation}</div>
-                            </div>
-                        `).join('')}
-                    </div>
-                </div>
+        //             <div class="documents-list">
+        //                 ${doctor.formations.map(formation => `
+        //                     <div class="document-item">
+        //                         <i class="fas fa-certificate document-icon"></i>
+        //                         <div>${formation}</div>
+        //                     </div>
+        //                 `).join('')}
+        //             </div>
+        //         </div>
                 
-                <div class="profile-actions" style="margin-top: 2rem; display: flex; justify-content: flex-end;">
-                    <button class="btn btn-primary" id="inviteDoctorBtn" data-id="${doctor.id}">
-                        <i class="fas fa-calendar-plus"></i> Inviter pour une intervention
-                    </button>
-                    <button class="btn btn-outline" id="backToListBtn" style="margin-right: 1rem;">
-                        <i class="fas fa-arrow-left"></i> Retour à la liste
-                    </button>
-                </div>
-            `;
+        //         <div class="profile-actions" style="margin-top: 2rem; display: flex; justify-content: flex-end;">
+        //             <button class="btn btn-primary" id="inviteDoctorBtn" data-id="${doctor.id}">
+        //                 <i class="fas fa-calendar-plus"></i> Inviter pour une intervention
+        //             </button>
+        //             <button class="btn btn-outline" id="backToListBtn" style="margin-right: 1rem;">
+        //                 <i class="fas fa-arrow-left"></i> Retour à la liste
+        //             </button>
+        //         </div>
+        //     `;
             
             // Ajouter l'événement au bouton d'invitation
-            document.getElementById('inviteDoctorBtn').addEventListener('click', () => {
-                inviteDoctor(doctor.id);
-            });
+        //     document.getElementById('inviteDoctorBtn').addEventListener('click', () => {
+        //         inviteDoctor(doctor.id);
+        //     });
             
-            // Bouton retour à la liste
-            document.getElementById('backToListBtn').addEventListener('click', () => {
-                doctorModal.style.display = 'none';
-            });
+        //     // Bouton retour à la liste
+        //     document.getElementById('backToListBtn').addEventListener('click', () => {
+        //         doctorModal.style.display = 'none';
+        //     });
             
-            // Afficher le modal
-            doctorModal.style.display = 'flex';
-        }
+        //     // Afficher le modal
+        //     doctorModal.style.display = 'flex';
+        // }
         
         // Fermer le modal profil
         modalCloseBtn.addEventListener('click', () => {
@@ -1198,6 +1277,6 @@
             const date = new Date(dateString);
             return date.toLocaleDateString('fr-FR');
         }
-    </script>
+    </script> --}}
 </body>
 </html>
