@@ -753,7 +753,7 @@
         
         <div class="profile-meta">
             <span><i class="fas fa-envelope"></i> {{ $chirurgien->email }}</span>
-            <span><i class="fas fa-phone"></i> {{ $chirurgien->numero }}</span>
+            <span><i class="fas fa-phone"></i> {{ $chirurgien->telephone }}</span>
         </div>
     </div>
 </div> 

@@ -43,22 +43,5 @@ class HopitalController extends Controller
 
         return redirect('/')->with('success', 'Inscription réussie !');
     }
-    public function traitementConnexion(Request $request){
-
-        $credentials = $request->validate([
-            'email' => 'required|email',
-            'password' => 'required'
-        ]);
-        
-        // $email = $request->email;
-        // $password = $request->password;
-
-        // dd($email, $password);
-        if (Auth::guard('etablissement')->attempt($credentials)) {
-            return view('Hopital.DashHospi');
-        }
-
-        return view('Login');
-    
-    }
+   
 }

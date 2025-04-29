@@ -61,24 +61,7 @@ class ChirurgienController extends Controller
 
     }
 
-    // public function traitementConnexion(Request $request){
-
-    //     $credentials = $request->validate([
-    //         'email' => 'required|email',
-    //         'password' => 'required'
-    //     ]);
-        
-    //     // $email = $request->email;
-    //     // $password = $request->password;
-
-    //     // dd($email, $password);
-    //     if (Auth::guard('chirurgien')->attempt($credentials)) {
-    //         return view('Medecin.DashMed');
-    //     }
-
-    //     return view('Login');
-    
-    // }
+   
     public function traitementConnexion(Request $request)
     {
         $credentials = $request->only('email', 'password');
