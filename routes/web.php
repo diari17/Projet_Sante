@@ -3,6 +3,7 @@
 use App\Http\Controllers\ChirurgienController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\HopitalController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -49,6 +50,9 @@ Route::get('/MyPropositions', function () {
 
 
 //Route Hospi
+
+Route::post('traitementInsHopital', [HopitalController::class, 'traitementInsHopital']);
+
 Route::get('/DashHospi', function () {
     return view('Hopital/DashHospi');
 });

@@ -385,16 +385,18 @@
                 </div>
             </form>
                 <!-- Champs spécifiques hôpital -->
+            <form action="traitementInsHopital" method="POST">
+                @csrf
                 <div id="hospitalFields" class="specific-fields">
                     <div class="form-group">
                         <label for="nom_hopital">Nom de l'établissement</label>
-                        <input type="text" id="nom_hopital" class="form-control" placeholder="Nom officiel" required>
+                        <input type="text" id="nom_hopital" name="nom" class="form-control" placeholder="Nom officiel" required>
                     </div>
                     
                     <div class="form-row">
                         <div class="form-group">
                             <label for="statut">Statut</label>
-                            <select id="statut" class="form-control" required>
+                            <select id="statut" name="statut" class="form-control" required>
                                 <option value="">Sélectionnez un statut</option>
                                 <option value="public">Établissement public</option>
                                 <option value="prive">Établissement privé</option>
@@ -406,51 +408,52 @@
                         
                         <div class="form-group">
                             <label for="region">Région</label>
-                            <input type="text" id="region" class="form-control" placeholder="Région principale" required>
+                            <input type="text" name="region" id="region" class="form-control" placeholder="Région principale" required>
                         </div>
                     </div>
                     
                     <div class="form-group">
                         <label for="adresse_hopital">Adresse postale complète</label>
-                        <input type="text" id="adresse_hopital" class="form-control" placeholder="Numéro, rue, code postal, ville" required>
+                        <input type="text" name="adresse" id="adresse_hopital" class="form-control" placeholder="Numéro, rue, code postal, ville" required>
                     </div>
                     
                     <div class="form-group">
                         <label for="email_hopital">Email professionnel</label>
-                        <input type="email" id="email_hopital" class="form-control" placeholder="contact@etablissement.com" required>
+                        <input type="email" name="email" id="email_hopital" class="form-control" placeholder="contact@etablissement.com" required>
                     </div>
                     
                     <div class="form-group">
                         <label for="phone_hopital">Téléphone</label>
-                        <input type="tel" id="phone_hopital" class="form-control" placeholder="+xx xx xxx xx xx" required>
+                        <input type="tel" name="telephone" id="phone_hopital" class="form-control" placeholder="+xx xx xxx xx xx" required>
                     </div>
                     
                     <div class="form-row">
                         <div class="form-group">
                             <label for="responsable_nom">Nom du responsable</label>
-                            <input type="text" id="responsable_nom" class="form-control" placeholder="Nom complet" required>
+                            <input type="text" name="nomRes" id="responsable_nom" class="form-control" placeholder="Nom complet" required>
                         </div>
                         
                         <div class="form-group">
                             <label for="responsable_fonction">Fonction</label>
-                            <input type="text" id="responsable_fonction" class="form-control" placeholder="Directeur, Responsable RH, etc." required>
+                            <input type="text" name="fonctionRes" id="responsable_fonction" class="form-control" placeholder="Directeur, Responsable RH, etc." required>
                         </div>
                     </div>
                     
                     <div class="form-row">
                         <div class="form-group">
                             <label for="password_hopital">Mot de passe</label>
-                            <input type="password" id="password_hopital" class="form-control" placeholder="••••••••" minlength="8" required>
+                            <input type="password" name="password" id="password_hopital" class="form-control" placeholder="••••••••" minlength="8" required>
                         </div>
                         
                         <div class="form-group">
                             <label for="confirm_password_hopital">Confirmation</label>
-                            <input type="password" id="confirm_password_hopital" class="form-control" placeholder="••••••••" minlength="8" required>
+                            <input type="password" name="password_confirmation" id="confirm_password_hopital" class="form-control" placeholder="••••••••" minlength="8" required>
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary">Créer mon compte</button>
 
                 </div>
+            </form>
                 
                 {{-- <button type="submit" class="btn btn-primary">Créer mon compte</button> --}}
                 

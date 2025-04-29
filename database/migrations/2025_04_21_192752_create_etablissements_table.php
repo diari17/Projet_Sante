@@ -16,10 +16,12 @@ return new class extends Migration
             $table->string('statut');
             $table->string('region');
             $table->string('telephone');
-            $table->string('mail')->unique();
+            $table->string('email')->unique();
             $table->string('password');
             $table->string('nomRes');
-            $table->string('fonction');
+            $table->string('fonctionRes');
+            $table->string('adresse');
+            $table->string('nom');
             $table->timestamps();
         });
     }

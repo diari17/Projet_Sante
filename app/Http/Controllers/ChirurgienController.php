@@ -61,22 +61,41 @@ class ChirurgienController extends Controller
 
     }
 
-    public function traitementConnexion(Request $request){
+    // public function traitementConnexion(Request $request){
 
-        $credentials = $request->validate([
-            'email' => 'required|email',
-            'password' => 'required'
-        ]);
+    //     $credentials = $request->validate([
+    //         'email' => 'required|email',
+    //         'password' => 'required'
+    //     ]);
         
-        // $email = $request->email;
-        // $password = $request->password;
+    //     // $email = $request->email;
+    //     // $password = $request->password;
 
-        // dd($email, $password);
-        if (Auth::guard('chirurgien')->attempt($credentials)) {
-            return view('Medecin.DashMed');
+    //     // dd($email, $password);
+    //     if (Auth::guard('chirurgien')->attempt($credentials)) {
+    //         return view('Medecin.DashMed');
+    //     }
+
+    //     return view('Login');
+    
+    // }
+    public function traitementConnexion(Request $request)
+    {
+        $credentials = $request->only('email', 'password');
+
+        // Essayer d'abord avec Etablissement
+        if (Auth::guard('etablissement')->attempt($credentials)) {
+            return redirect()->intended('/DashHospi');
         }
 
-        return view('Login');
-    
+        // Essayer ensuite avec Chirurgien
+        if (Auth::guard('chirurgien')->attempt($credentials)) {
+            return redirect()->intended('/DashMed');
+        }
+
+        // Si aucun ne marche
+        return back()->withErrors([
+            'email' => 'Les identifiants sont incorrects.',
+        ]);
     }
 }

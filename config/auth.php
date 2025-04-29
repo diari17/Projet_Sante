@@ -44,6 +44,10 @@ return [
             'driver' => 'session',
             'provider' => 'chirurgiens',
         ],
+        'etablissement' => [
+            'driver' => 'session',
+            'provider' => 'etablissements',
+        ],
     ],
 
     /*
@@ -72,6 +76,11 @@ return [
         'chirurgiens' => [
             'driver' => 'eloquent',
             'model' => App\Models\Chirurgien::class,
+        ],
+
+        'etablissements' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Etablissement::class,
         ],
     ],
 
