@@ -572,23 +572,32 @@
                 <button class="modal-close">&times;</button>
             </div>
             
-            <form id="interventionForm">
+            <form id="interventionForm" action="traitementCreerIntervention" method="POST">
+                @csrf
                 <input type="hidden" id="interventionId">
                 
                 <div class="form-section">
                     <h3 class="form-section-title"><i class="fas fa-user-injured"></i> Informations patient</h3>
                     <div class="form-grid">
                         <div class="form-group">
-                            <label for="patientName">Nom complet du patient</label>
-                            <input type="text" id="patientName" class="form-control" required>
+                            <label for="patientName">Nom du patient</label>
+                            <input type="text" name="nomPatient" id="patientName" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="patientName">Prenom du patient</label>
+                            <input type="text" name="prenomPatient" id="patientName" class="form-control" required>
                         </div>
                         <div class="form-group">
                             <label for="patientAge">Âge</label>
-                            <input type="number" id="patientAge" class="form-control" min="0" max="120" required>
+                            <input type="number" name="agePatient" id="patientAge" class="form-control" min="0" max="120" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="patientAge">Maladie</label>
+                            <input type="text" name="maladie" id="patientAge" class="form-control" min="0" max="120" required>
                         </div>
                         <div class="form-group">
                             <label for="patientGender">Sexe</label>
-                            <select id="patientGender" class="form-control" required>
+                            <select name="sexePatient" id="patientGender" class="form-control" required>
                                 <option value="">Sélectionner</option>
                                 <option value="M">Masculin</option>
                                 <option value="F">Féminin</option>
@@ -606,11 +615,11 @@
                     <div class="form-grid">
                         <div class="form-group">
                             <label for="interventionType">Type d'intervention</label>
-                            <input type="text" id="interventionType" class="form-control" required>
+                            <input type="text" name="typeInt"  id="interventionType" class="form-control" required>
                         </div>
                         <div class="form-group">
                             <label for="specialty">Spécialité requise</label>
-                            <select id="specialty" class="form-control" required>
+                            <select id="specialty" name="speRequise" class="form-control" required>
                                 <option value="">Sélectionner</option>
                                 <option value="chirurgie_generale">Chirurgie générale</option>
                                 <option value="chirurgie_digestive">Chirurgie digestive</option>
@@ -649,19 +658,19 @@
                         </div>
                         <div class="form-group">
                             <label for="interventionDate">Date prévue</label>
-                            <input type="date" id="interventionDate" class="form-control" required>
+                            <input type="date" name="date" id="interventionDate" class="form-control" required>
                         </div>
                         <div class="form-group">
                             <label for="interventionTime">Heure prévue</label>
-                            <input type="time" id="interventionTime" class="form-control" required>
+                            <input type="time" name="heure" id="interventionTime" class="form-control" required>
                         </div>
                         <div class="form-group">
                             <label for="estimatedDuration">Durée estimée (heures)</label>
-                            <input type="number" id="estimatedDuration" class="form-control" min="0.5" max="12" step="0.5" required>
+                            <input type="number" name="duree" id="estimatedDuration" class="form-control" min="0.5" max="12" step="0.5" required>
                         </div>
                         <div class="form-group">
                             <label for="urgency">Niveau d'urgence</label>
-                            <select id="urgency" class="form-control" required>
+                            <select id="urgency" name="niveau" class="form-control" required>
                                 <option value="normal">Normal</option>
                                 <option value="urgent">Urgent</option>
                                 <option value="tres-urgent">Très urgent</option>
@@ -676,13 +685,13 @@
                         </div>
                         <div class="form-group price-group" style="display: none;">
                             <label for="tarif">Tarif proposé (Fcfa)</label>
-                            <input type="number" id="tarif" class="form-control" placeholder="1200" min="0" step="50">
+                            <input type="number" name="renumeration" id="tarif" class="form-control" placeholder="1200" min="0" step="50">
                         </div>
 
                     </div>
                     <div class="form-group">
                         <label for="interventionDetails">Détails médicaux importants</label>
-                        <textarea id="interventionDetails" class="form-control" placeholder="Antécédents médicaux, allergies, médicaments actuels, etc."></textarea>
+                        <textarea id="interventionDetails" name="details" class="form-control" placeholder="Antécédents médicaux, allergies, médicaments actuels, etc."></textarea>
                     </div>
                 </div>
                 
@@ -693,10 +702,10 @@
             </form>
         </div>
     </div>
-    
+      
     <script>
         // Données simulées
-        let interventions = [
+        /* let interventions = [
             {
                 id: 1,
                 patientName: "M. Jean Dubois",
@@ -745,7 +754,8 @@
                 status: "non-attribuee",
                 applications: 0
             }
-        ];
+        ]; */
+        
         
         // Éléments DOM
         const newInterventionBtn = document.getElementById('newInterventionBtn');
@@ -780,143 +790,143 @@
         });
         
         // Soumission du formulaire
-        interventionForm.addEventListener('submit', (e) => {
-            e.preventDefault();
+        // interventionForm.addEventListener('submit', (e) => {
+        //     e.preventDefault();
             
-            const id = document.getElementById('interventionId').value;
-            const isNew = id === '';
+        //     const id = document.getElementById('interventionId').value;
+        //     const isNew = id === '';
             
-            const interventionData = {
-                id: isNew ? Date.now() : parseInt(id),
-                patientName: document.getElementById('patientName').value,
-                patientAge: parseInt(document.getElementById('patientAge').value),
-                patientGender: document.getElementById('patientGender').value,
-                patientFile: document.getElementById('patientFile').value,
-                interventionType: document.getElementById('interventionType').value,
-                specialty: document.getElementById('specialty').value,
-                date: document.getElementById('interventionDate').value,
-                time: document.getElementById('interventionTime').value,
-                duration: parseFloat(document.getElementById('estimatedDuration').value),
-                urgency: document.getElementById('urgency').value,
-                details: document.getElementById('interventionDetails').value,
-                status: "non-attribuee",
-                applications: 0
-            };
+        //     const interventionData = {
+        //         id: isNew ? Date.now() : parseInt(id),
+        //         patientName: document.getElementById('patientName').value,
+        //         patientAge: parseInt(document.getElementById('patientAge').value),
+        //         patientGender: document.getElementById('patientGender').value,
+        //         patientFile: document.getElementById('patientFile').value,
+        //         interventionType: document.getElementById('interventionType').value,
+        //         specialty: document.getElementById('specialty').value,
+        //         date: document.getElementById('interventionDate').value,
+        //         time: document.getElementById('interventionTime').value,
+        //         duration: parseFloat(document.getElementById('estimatedDuration').value),
+        //         urgency: document.getElementById('urgency').value,
+        //         details: document.getElementById('interventionDetails').value,
+        //         status: "non-attribuee",
+        //         applications: 0
+        //     };
             
-            if (isNew) {
-                interventions.unshift(interventionData);
-            } else {
-                const index = interventions.findIndex(i => i.id === parseInt(id));
-                if (index !== -1) {
-                    interventions[index] = interventionData;
-                }
-            }
+        //     if (isNew) {
+        //         interventions.unshift(interventionData);
+        //     } else {
+        //         const index = interventions.findIndex(i => i.id === parseInt(id));
+        //         if (index !== -1) {
+        //             interventions[index] = interventionData;
+        //         }
+        //     }
             
-            interventionForm.reset();
-            interventionModal.style.display = 'none';
-            renderInterventions();
-            alert(`Intervention ${isNew ? 'ajoutée' : 'mise à jour'} avec succès!`);
-        });
+        //     interventionForm.reset();
+        //     interventionModal.style.display = 'none';
+        //     renderInterventions();
+        //     alert(`Intervention ${isNew ? 'ajoutée' : 'mise à jour'} avec succès!`);
+        // });
         
         // Rendre une intervention
-        function renderIntervention(intervention) {
-            const statusClass = intervention.status === 'attribuee' ? 'status-attribuee' : 'status-non-attribuee';
-            const statusText = intervention.status === 'attribuee' ? 'Attribuée' : 'Non attribuée';
+        // function renderIntervention(intervention) {
+        //     const statusClass = intervention.status === 'attribuee' ? 'status-attribuee' : 'status-non-attribuee';
+        //     const statusText = intervention.status === 'attribuee' ? 'Attribuée' : 'Non attribuée';
             
-            return `
-                <div class="intervention-item" data-id="${intervention.id}">
-                    <div class="intervention-header">
-                        <h3 class="intervention-title">${intervention.interventionType} - ${intervention.patientName}</h3>
-                        <span class="intervention-status ${statusClass}">${statusText}</span>
-                    </div>
+        //     return `
+        //         <div class="intervention-item" data-id="${intervention.id}">
+        //             <div class="intervention-header">
+        //                 <h3 class="intervention-title">${intervention.interventionType} - ${intervention.patientName}</h3>
+        //                 <span class="intervention-status ${statusClass}">${statusText}</span>
+        //             </div>
                     
-                    <div class="intervention-meta">
-                        <span><i class="fas fa-calendar-alt"></i> ${formatDate(intervention.date)} - ${intervention.time}</span>
-                        <span><i class="fas fa-user-md"></i> ${getSpecialtyName(intervention.specialty)}</span>
-                        <span><i class="fas fa-clock"></i> ${intervention.duration}h estimées</span>
-                        <span><i class="fas fa-exclamation-triangle"></i> ${getUrgencyText(intervention.urgency)}</span>
-                    </div>
+        //             <div class="intervention-meta">
+        //                 <span><i class="fas fa-calendar-alt"></i> ${formatDate(intervention.date)} - ${intervention.time}</span>
+        //                 <span><i class="fas fa-user-md"></i> ${getSpecialtyName(intervention.specialty)}</span>
+        //                 <span><i class="fas fa-clock"></i> ${intervention.duration}h estimées</span>
+        //                 <span><i class="fas fa-exclamation-triangle"></i> ${getUrgencyText(intervention.urgency)}</span>
+        //             </div>
                     
-                    <div class="intervention-details">
-                        <p><strong>Détails :</strong> ${intervention.details || 'Aucun détail supplémentaire'}</p>
-                        ${intervention.status === 'attribuee' ? 
-                          `<p><strong>Chirurgien :</strong> ${intervention.surgeon}</p>` : 
-                          `<p><strong>Candidatures :</strong> ${intervention.applications || 0}</p>`}
-                    </div>
+        //             <div class="intervention-details">
+        //                 <p><strong>Détails :</strong> ${intervention.details || 'Aucun détail supplémentaire'}</p>
+        //                 ${intervention.status === 'attribuee' ? 
+        //                   `<p><strong>Chirurgien :</strong> ${intervention.surgeon}</p>` : 
+        //                   `<p><strong>Candidatures :</strong> ${intervention.applications || 0}</p>`}
+        //             </div>
                     
-                    <div class="intervention-actions">
-                        <button class="btn btn-outline edit-btn" data-id="${intervention.id}">
-                            <i class="fas fa-edit"></i> Modifier
-                        </button>
-                        ${intervention.status === 'non-attribuee' ? 
-                          `<button class="btn btn-primary search-btn" data-id="${intervention.id}">
-                              <i class="fas fa-search"></i> Rechercher
-                          </button>` : 
-                          `<button class="btn btn-primary details-btn" data-id="${intervention.id}">
-                              <i class="fas fa-info-circle"></i> Détails
-                          </button>`}
-                        <button class="btn btn-danger delete-btn" data-id="${intervention.id}">
-                            <i class="fas fa-trash"></i> Supprimer
-                        </button>
-                    </div>
-                </div>
-            `;
-        }
+        //             <div class="intervention-actions">
+        //                 <button class="btn btn-outline edit-btn" data-id="${intervention.id}">
+        //                     <i class="fas fa-edit"></i> Modifier
+        //                 </button>
+        //                 ${intervention.status === 'non-attribuee' ? 
+        //                   `<button class="btn btn-primary search-btn" data-id="${intervention.id}">
+        //                       <i class="fas fa-search"></i> Rechercher
+        //                   </button>` : 
+        //                   `<button class="btn btn-primary details-btn" data-id="${intervention.id}">
+        //                       <i class="fas fa-info-circle"></i> Détails
+        //                   </button>`}
+        //                 <button class="btn btn-danger delete-btn" data-id="${intervention.id}">
+        //                     <i class="fas fa-trash"></i> Supprimer
+        //                 </button>
+        //             </div>
+        //         </div>
+        //     `;
+        // }
         
         // Rendre toutes les interventions
-        function renderInterventions() {
-            interventionsContainer.innerHTML = '';
+        // function renderInterventions() {
+        //     interventionsContainer.innerHTML = '';
             
-            if (interventions.length === 0) {
-                interventionsContainer.innerHTML = `
-                    <div class="intervention-item">
-                        <p>Aucune intervention programmée pour le moment.</p>
-                    </div>
-                `;
-                return;
-            }
+        //     if (interventions.length === 0) {
+        //         interventionsContainer.innerHTML = `
+        //             <div class="intervention-item">
+        //                 <p>Aucune intervention programmée pour le moment.</p>
+        //             </div>
+        //         `;
+        //         return;
+        //     }
             
-            interventions.forEach(intervention => {
-                interventionsContainer.innerHTML += renderIntervention(intervention);
-            });
+        //     interventions.forEach(intervention => {
+        //         interventionsContainer.innerHTML += renderIntervention(intervention);
+        //     });
             
-            // Ajouter les événements
-            document.querySelectorAll('.edit-btn').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    const id = parseInt(e.currentTarget.getAttribute('data-id'));
-                    editIntervention(id);
-                });
-            });
+        //     // Ajouter les événements
+        //     document.querySelectorAll('.edit-btn').forEach(btn => {
+        //         btn.addEventListener('click', (e) => {
+        //             const id = parseInt(e.currentTarget.getAttribute('data-id'));
+        //             editIntervention(id);
+        //         });
+        //     });
             
-            document.querySelectorAll('.delete-btn').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    const id = parseInt(e.currentTarget.getAttribute('data-id'));
-                    deleteIntervention(id);
-                });
-            });
-        }
+        //     document.querySelectorAll('.delete-btn').forEach(btn => {
+        //         btn.addEventListener('click', (e) => {
+        //             const id = parseInt(e.currentTarget.getAttribute('data-id'));
+        //             deleteIntervention(id);
+        //         });
+        //     });
+        // }
         
         // Éditer une intervention
-        function editIntervention(id) {
-            const intervention = interventions.find(i => i.id === id);
-            if (!intervention) return;
+        // function editIntervention(id) {
+        //     const intervention = interventions.find(i => i.id === id);
+        //     if (!intervention) return;
             
-            document.getElementById('interventionId').value = intervention.id;
-            document.getElementById('patientName').value = intervention.patientName;
-            document.getElementById('patientAge').value = intervention.patientAge;
-            document.getElementById('patientGender').value = intervention.patientGender;
-            document.getElementById('patientFile').value = intervention.patientFile;
-            document.getElementById('interventionType').value = intervention.interventionType;
-            document.getElementById('specialty').value = intervention.specialty;
-            document.getElementById('interventionDate').value = intervention.date;
-            document.getElementById('interventionTime').value = intervention.time;
-            document.getElementById('estimatedDuration').value = intervention.duration;
-            document.getElementById('urgency').value = intervention.urgency;
-            document.getElementById('interventionDetails').value = intervention.details || '';
+        //     document.getElementById('interventionId').value = intervention.id;
+        //     document.getElementById('patientName').value = intervention.patientName;
+        //     document.getElementById('patientAge').value = intervention.patientAge;
+        //     document.getElementById('patientGender').value = intervention.patientGender;
+        //     document.getElementById('patientFile').value = intervention.patientFile;
+        //     document.getElementById('interventionType').value = intervention.interventionType;
+        //     document.getElementById('specialty').value = intervention.specialty;
+        //     document.getElementById('interventionDate').value = intervention.date;
+        //     document.getElementById('interventionTime').value = intervention.time;
+        //     document.getElementById('estimatedDuration').value = intervention.duration;
+        //     document.getElementById('urgency').value = intervention.urgency;
+        //     document.getElementById('interventionDetails').value = intervention.details || '';
             
-            modalInterventionTitle.textContent = 'Modifier intervention';
-            interventionModal.style.display = 'flex';
-        }
+        //     modalInterventionTitle.textContent = 'Modifier intervention';
+        //     interventionModal.style.display = 'flex';
+        // }
         
         // Supprimer une intervention
         function deleteIntervention(id) {

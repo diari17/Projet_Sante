@@ -7,7 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 // use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Intervention;
+// use Intervention;
+use App\Models\Intervention;
 class Chirurgien extends Authenticatable
 {
     use Notifiable;

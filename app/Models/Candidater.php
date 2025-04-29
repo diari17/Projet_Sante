@@ -2,7 +2,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Relations\Pivot;
-use Intervention;
+// use Intervention;
+use App\Models\Intervention;
 
 class Candidater extends Pivot
 {

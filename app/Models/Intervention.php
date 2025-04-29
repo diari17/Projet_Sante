@@ -1,5 +1,5 @@
 <?php
-
+namespace App\Models; 
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Candidater;
@@ -11,7 +11,7 @@ class Intervention extends Model
 
     protected $fillable = [
         'date', 'SpeRequise', 'hopital', 'idPatient', 'type',
-        'heure', 'duree', 'niveau', 'renumeration'
+        'heure', 'duree', 'niveau', 'renumeration', 'details'
     ];
 
     // Une intervention appartient à un patient

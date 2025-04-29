@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer('age');
             $table->string('maladie');
             $table->string('numero'); 
+            $table->string('sexe'); 
             $table->timestamps();
         });
     }
