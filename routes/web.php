@@ -61,6 +61,8 @@ Route::get('/CreerInterv', function () {
     return view('Hopital/CreerInterv');
 });
 
+Route::post('traitementCreerIntervention', [HopitalController::class, 'traitementCreerIntervention']);
+
 // Route::get('/ListMed', function () {
 //     return view('Hopital/ListMed');
 // });

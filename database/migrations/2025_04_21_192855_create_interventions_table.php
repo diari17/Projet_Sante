@@ -15,12 +15,13 @@ return new class extends Migration
             $table->id('idIntervention');
             $table->date('date');
             $table->string('SpeRequise');
-            $table->string('hopital');
+            $table->integer('hopital');
             $table->foreignId('idPatient')->constrained('patients', 'idPatient')->onDelete('cascade');
             $table->string('type');
             $table->time('heure');
             $table->integer('duree'); 
             $table->string('niveau'); 
+            $table->string('details');
             $table->decimal('renumeration', 10, 2);
             $table->timestamps();
         });

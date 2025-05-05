@@ -4,13 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Intervention;
+use App\Models\Intervention;
+// use Intervention;
 class Patient extends Model
 {
     protected $primaryKey = 'idPatient';
 
     protected $fillable = [
-        'nom', 'prenom', 'age', 'maladie', 'numero'
+        'nom', 'prenom', 'age', 'maladie', 'numero', 'sexe'
     ];
 
     // Un patient peut avoir plusieurs interventions
