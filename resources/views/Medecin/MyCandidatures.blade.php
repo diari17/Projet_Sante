@@ -476,6 +476,17 @@
                 <h1 class="page-title"><i class="fas fa-share-square"></i> Mes Candidatures</h1>
             </div>
             
+            @if (session('status'))
+            <div class="alert alert-success">
+                {{session('status')}} 
+            </div>
+            @endif
+            @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+            @endif
+
             <div class="candidatures-container">
                 <div class="candidatures-header">
                     <h2>Historique de mes candidatures</h2>

@@ -562,6 +562,17 @@
                 <h1 class="page-title"><i class="fas fa-search"></i> Rechercher Interventions</h1>
             </div>
             
+            @if (session('status'))
+            <div class="alert alert-success">
+                {{session('status')}} 
+            </div>
+            @endif
+            @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+            @endif
+
             <!-- Filtres de recherche -->
             <div class="search-filters">
                 <h3>Filtrer les interventions</h3>

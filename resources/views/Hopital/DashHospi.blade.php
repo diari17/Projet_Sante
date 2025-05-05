@@ -439,6 +439,17 @@
                         </div>
                     </div>
                     
+                    @if (session('status'))
+            <div class="alert alert-success">
+                {{session('status')}} 
+            </div>
+            @endif
+            @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+            @endif
+
                     <a href="#" class="dropdown-item" id="updateProfileBtn">
                         <i class="fas fa-user-cog"></i>
                         <span>Paramètres du compte</span>

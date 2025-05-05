@@ -525,6 +525,17 @@
                 </div>
             </div>
             
+            @if (session('status'))
+            <div class="alert alert-success">
+                {{session('status')}} 
+            </div>
+            @endif
+            @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+            @endif
+
             <!-- Filtres -->
             <div class="search-filters">
                 <h3>Filtrer les propositions</h3>
