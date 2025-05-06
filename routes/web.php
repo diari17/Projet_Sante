@@ -75,3 +75,15 @@ Route::get('/ListCandidatures', function () {
 Route::get('/SendPropositions', function () {
     return view('Hopital/SendPropositions');
 });
+
+
+
+
+
+Route::get('/Connexion', function () {
+    return view('Moderateur/Connexion');
+});
+
+Route::get('/DashMod', function () {
+    return view('Moderateur/DashMod');
+});
