@@ -621,8 +621,8 @@
                     </div>
                 </div>
                 
-                <div class="form-section">
-                    <h3 class="form-section-title"><i class="fas fa-procedures"></i> Détails intervention</h3>
+                <!-- <div class="form-section"> -->
+                    <!-- <h3 class="form-section-title"><i class="fas fa-procedures"></i> Détails intervention</h3>
                     <div class="form-grid">
                         <div class="form-group">
                             <label for="interventionType">Type d'intervention</label>
@@ -704,11 +704,11 @@
                         <label for="interventionDetails">Détails médicaux importants</label>
                         <textarea id="interventionDetails" name="details" class="form-control" placeholder="Antécédents médicaux, allergies, médicaments actuels, etc."></textarea>
                     </div>
-                </div>
+                </div> -->
                 
                 <div class="form-actions">
-                    <button type="button" id="cancelInterventionBtn" class="btn btn-outline">Annuler</button>
-                    <button type="submit" class="btn btn-primary">Enregistrer</button>
+                <button type="button" onclick="window.location.href='CreerInterv'" class="btn btn-outline">Annuler</button>
+                    <button type="submit" class="btn btn-primary">Continuer vers les détails</button>
                 </div>
             </form>
         </div>

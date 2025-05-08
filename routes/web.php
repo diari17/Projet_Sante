@@ -61,6 +61,11 @@ Route::get('/CreerInterv', function () {
     return view('Hopital/CreerInterv');
 });
 
+//Le new fichier PSSSSSSSSSS
+Route::get('/DetailsInterv', function () {
+    return view('Hopital/DetailsInterv');
+});
+
 Route::post('traitementCreerIntervention', [HopitalController::class, 'traitementCreerIntervention']);
 
 // Route::get('/ListMed', function () {
