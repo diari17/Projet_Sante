@@ -321,6 +321,35 @@
         .btn-outline:hover {
             background-color: rgba(42, 91, 215, 0.1);
         }
+
+        .nav-item a.active {
+            background-color: rgba(42, 91, 215, 0.2);
+            border-left: 3px solid var(--primary);
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 2rem;
+            color: var(--gray);
+        }
+        
+        .type-badge {
+            display: inline-block;
+            padding: 0.3rem 0.6rem;
+            border-radius: 0.5rem;
+            font-size: 0.7rem;
+            font-weight: 500;
+        }
+        
+        .type-medecin {
+            background-color: rgba(0, 194, 203, 0.1);
+            color: var(--secondary);
+        }
+        
+        .type-hopital {
+            background-color: rgba(42, 91, 215, 0.1);
+            color: var(--primary);
+        }
         
         /* Modal */
         .modal {
@@ -455,11 +484,6 @@
             <div class="profile-dropdown">
                 <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Modérateur" class="profile-img">
                 <div class="dropdown-menu">
-                    <a href="#" class="dropdown-item">
-                        <i class="fas fa-user-cog"></i>
-                        <span>Mon compte</span>
-                    </a>
-                    
                     <a href="login-moderateur.html" class="dropdown-item">
                         <i class="fas fa-sign-out-alt"></i>
                         <span>Déconnexion</span>
@@ -471,191 +495,67 @@
     
     <!-- Main Content -->
     <div class="main-container">
-        <!-- Sidebar -->
+        <!-- Sidebar modifié -->
         <aside class="sidebar">
             <ul class="nav-menu">
                 <li class="nav-item">
-                    <a href="dashboard-moderateur.html" class="active">
+                    <a href="#" class="active" data-filter="all">
                         <i class="fas fa-home"></i>
                         <span>Tableau de bord</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="utilisateurs-en-attente.html">
+                    <a href="#" data-filter="pending">
                         <i class="fas fa-user-clock"></i>
                         <span>En attente</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="utilisateurs-approuves.html">
+                    <a href="#" data-filter="approved">
                         <i class="fas fa-user-check"></i>
                         <span>Approuvés</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="utilisateurs-rejetes.html">
+                    <a href="#" data-filter="rejected">
                         <i class="fas fa-user-times"></i>
                         <span>Rejetés</span>
                     </a>
                 </li>
             </ul>
+            
+            <div style="padding: 1rem; border-top: 1px solid var(--light-gray); margin-top: 1rem;">
+                <h4 style="margin-bottom: 0.5rem; font-size: 0.9rem;">Filtrer par type :</h4>
+                <select id="userTypeFilter" class="form-control">
+                    <option value="all">Tous les types</option>
+                    <option value="medecin">Médecins/Chirurgiens</option>
+                    <option value="hopital">Hôpitaux/Cliniques</option>
+                </select>
+            </div>
         </aside>
         
-        <!-- Main Content -->
+        <!-- Main Content modifié -->
         <main class="main-content">
             <div class="page-header">
-                <h1 class="page-title"><i class="fas fa-home"></i> Tableau de bord Modérateur</h1>
+                <h1 class="page-title" id="currentViewTitle"><i class="fas fa-home"></i> Tableau de bord Modérateur</h1>
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="Rechercher..." class="form-control">
+                    <button class="btn btn-outline" id="searchBtn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
             </div>
             
             <div class="users-container">
-                <div class="users-header">
-                    <h2>Dernières demandes d'inscription</h2>
-                    <div class="search-box">
-                        <input type="text" placeholder="Rechercher..." class="form-control">
-                        <button class="btn btn-outline">
-                            <i class="fas fa-search"></i>
-                        </button>
-                    </div>
+                <div id="usersTableContainer">
+                    <!-- Le contenu sera chargé dynamiquement ici -->
                 </div>
-                
-                <div class="filters">
-                    <div class="filter-group">
-                        <label for="filterType">Type :</label>
-                        <select id="filterType" class="form-control">
-                            <option value="all">Tous</option>
-                            <option value="medecin">Médecins</option>
-                            <option value="hopital">Hôpitaux</option>
-                        </select>
-                    </div>
-                    
-                    <div class="filter-group">
-                        <label for="filterDate">Date :</label>
-                        <select id="filterDate" class="form-control">
-                            <option value="all">Toutes</option>
-                            <option value="today">Aujourd'hui</option>
-                            <option value="week">Cette semaine</option>
-                        </select>
-                    </div>
-                    
-                    <button class="btn btn-outline">
-                        <i class="fas fa-filter"></i> Filtrer
-                    </button>
-                </div>
-                
-                <table class="users-table">
-                    <thead>
-                        <tr>
-                            <th>Nom</th>
-                            <th>Type</th>
-                            <th>Email</th>
-                            <th>Date</th>
-                            <th>Statut</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                                <div style="display: flex; align-items: center; gap: 0.5rem;">
-                                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Dr. Martin" style="width: 30px; height: 30px; border-radius: 50%;">
-                                    <span>Dr. Jean Martin</span>
-                                </div>
-                            </td>
-                            <td>Chirurgien</td>
-                            <td>jean.martin@example.com</td>
-                            <td>15/07/2023</td>
-                            <td><span class="user-status status-pending">En attente</span></td>
-                            <td>
-                                <div class="user-actions">
-                                    <button class="btn btn-sm btn-success approve-btn">
-                                        <i class="fas fa-check"></i>
-                                    </button>
-                                    <button class="btn btn-sm btn-danger reject-btn">
-                                        <i class="fas fa-times"></i>
-                                    </button>
-                                    <button class="btn btn-sm btn-outline details-btn">
-                                        <i class="fas fa-eye"></i>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div style="display: flex; align-items: center; gap: 0.5rem;">
-                                    <img src="https://randomuser.me/api/portraits/women/45.jpg" alt="Clinique" style="width: 30px; height: 30px; border-radius: 50%;">
-                                    <span>Clinique Saint-Louis</span>
-                                </div>
-                            </td>
-                            <td>Hôpital</td>
-                            <td>contact@clinique-saintlouis.fr</td>
-                            <td>14/07/2023</td>
-                            <td><span class="user-status status-pending">En attente</span></td>
-                            <td>
-                                <div class="user-actions">
-                                    <button class="btn btn-sm btn-success approve-btn">
-                                        <i class="fas fa-check"></i>
-                                    </button>
-                                    <button class="btn btn-sm btn-danger reject-btn">
-                                        <i class="fas fa-times"></i>
-                                    </button>
-                                    <button class="btn btn-sm btn-outline details-btn">
-                                        <i class="fas fa-eye"></i>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div style="display: flex; align-items: center; gap: 0.5rem;">
-                                    <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Dr. Sophie" style="width: 30px; height: 30px; border-radius: 50%;">
-                                    <span>Dr. Sophie Lambert</span>
-                                </div>
-                            </td>
-                            <td>Chirurgien</td>
-                            <td>sophie.lambert@example.com</td>
-                            <td>12/07/2023</td>
-                            <td><span class="user-status status-approved">Approuvé</span></td>
-                            <td>
-                                <div class="user-actions">
-                                    <button class="btn btn-sm btn-danger">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                    <button class="btn btn-sm btn-outline details-btn">
-                                        <i class="fas fa-eye"></i>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div style="display: flex; align-items: center; gap: 0.5rem;">
-                                    <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="Dr. Pierre" style="width: 30px; height: 30px; border-radius: 50%;">
-                                    <span>Dr. Pierre Dubois</span>
-                                </div>
-                            </td>
-                            <td>Chirurgien</td>
-                            <td>pierre.dubois@example.com</td>
-                            <td>10/07/2023</td>
-                            <td><span class="user-status status-rejected">Rejeté</span></td>
-                            <td>
-                                <div class="user-actions">
-                                    <button class="btn btn-sm btn-success">
-                                        <i class="fas fa-redo"></i>
-                                    </button>
-                                    <button class="btn btn-sm btn-outline details-btn">
-                                        <i class="fas fa-eye"></i>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
             </div>
         </main>
     </div>
     
-    <!-- Footer -->
-    <footer>
+<!-- Footer -->
+<footer>
         <p>&copy; 2025 XëtConnect. Tous droits réservés.</p>
     </footer>
     
@@ -738,88 +638,421 @@
             </div>
         </div>
     </div>
-    
+
     <script>
-        // Gestion des modals
-        const userModal = document.getElementById('userModal');
-        const confirmModal = document.getElementById('confirmModal');
-        const modalCloseBtns = document.querySelectorAll('.modal-close');
-        const closeBtns = document.querySelectorAll('.close-btn');
-        const detailsBtns = document.querySelectorAll('.details-btn');
-        const approveBtns = document.querySelectorAll('.approve-btn');
-        const rejectBtns = document.querySelectorAll('.reject-btn');
-        const cancelBtn = document.querySelector('.cancel-btn');
-        const confirmBtn = document.querySelector('.confirm-btn');
-        
-        // Ouvrir modal détails
-        detailsBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                userModal.style.display = 'flex';
-            });
-        });
-        
-        // Ouvrir modal confirmation approbation
-        approveBtns.forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                document.getElementById('confirmMessage').textContent = "Êtes-vous sûr de vouloir approuver cet utilisateur ?";
-                confirmModal.style.display = 'flex';
-            });
-        });
-        
-        // Ouvrir modal confirmation rejet
-        rejectBtns.forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                document.getElementById('confirmMessage').textContent = "Êtes-vous sûr de vouloir rejeter cet utilisateur ?";
-                confirmModal.style.display = 'flex';
-            });
-        });
-        
-        // Fermer modals
-        modalCloseBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                userModal.style.display = 'none';
-                confirmModal.style.display = 'none';
-            });
-        });
-        
-        closeBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                userModal.style.display = 'none';
-                confirmModal.style.display = 'none';
-            });
-        });
-        
-        cancelBtn.addEventListener('click', () => {
-            confirmModal.style.display = 'none';
-        });
-        
-        // Confirmer action
-        confirmBtn.addEventListener('click', () => {
-            // Ici vous ajouteriez la logique pour approuver/rejeter l'utilisateur
-            alert('Action confirmée !');
-            confirmModal.style.display = 'none';
-            userModal.style.display = 'none';
-            
-            // Mettre à jour l'interface utilisateur
-            // Par exemple, changer le statut ou supprimer l'élément
-        });
-        
-        window.addEventListener('click', (e) => {
-            if (e.target === userModal || e.target === confirmModal) {
-                userModal.style.display = 'none';
-                confirmModal.style.display = 'none';
+        // Données simulées
+        const usersData = [
+            {
+                id: 1,
+                name: "Dr. Jean Martin",
+                type: "medecin",
+                specialty: "Chirurgien orthopédique",
+                email: "jean.martin@example.com",
+                phone: "+33 6 12 34 56 78",
+                location: "Lyon, France",
+                date: "15/07/2023",
+                status: "pending",
+                avatar: "https://randomuser.me/api/portraits/men/32.jpg",
+                documents: [
+                    { name: "Diplôme_de_Chirurgie.pdf", type: "pdf" },
+                    { name: "Certificat_Spécialisation.pdf", type: "certificate" },
+                    { name: "Carte_Professionnelle.pdf", type: "id" }
+                ]
+            },
+            {
+                id: 2,
+                name: "Clinique Saint-Louis",
+                type: "hopital",
+                specialty: "Hôpital général",
+                email: "contact@clinique-saintlouis.fr",
+                phone: "+33 1 23 45 67 89",
+                location: "Paris, France",
+                date: "14/07/2023",
+                status: "pending",
+                avatar: "https://randomuser.me/api/portraits/women/45.jpg",
+                documents: [
+                    { name: "Agrément_Clinique.pdf", type: "pdf" },
+                    { name: "Certification_HAS.pdf", type: "certificate" }
+                ]
+            },
+            {
+                id: 3,
+                name: "Dr. Sophie Lambert",
+                type: "medecin",
+                specialty: "Chirurgien cardiaque",
+                email: "sophie.lambert@example.com",
+                phone: "+33 6 98 76 54 32",
+                location: "Marseille, France",
+                date: "12/07/2023",
+                status: "approved",
+                avatar: "https://randomuser.me/api/portraits/women/65.jpg",
+                documents: [
+                    { name: "Diplôme_Cardiologie.pdf", type: "pdf" },
+                    { name: "Autorisation_Exercice.pdf", type: "certificate" }
+                ]
+            },
+            {
+                id: 4,
+                name: "Dr. Pierre Dubois",
+                type: "medecin",
+                specialty: "Neurochirurgien",
+                email: "pierre.dubois@example.com",
+                phone: "+33 6 45 67 89 01",
+                location: "Toulouse, France",
+                date: "10/07/2023",
+                status: "rejected",
+                avatar: "https://randomuser.me/api/portraits/men/22.jpg",
+                documents: [
+                    { name: "Diplôme_Neurochirurgie.pdf", type: "pdf" }
+                ]
+            },
+            {
+                id: 5,
+                name: "Hôpital Européen",
+                type: "hopital",
+                specialty: "Centre hospitalier",
+                email: "contact@hopital-europeen.fr",
+                phone: "+33 1 98 76 54 32",
+                location: "Lille, France",
+                date: "18/07/2023",
+                status: "approved",
+                avatar: "https://randomuser.me/api/portraits/men/75.jpg",
+                documents: [
+                    { name: "Statuts_Hopital.pdf", type: "pdf" },
+                    { name: "Certification_Qualité.pdf", type: "certificate" }
+                ]
             }
-        });
-        
-        // Filtrage des utilisateurs
-        document.querySelector('.btn-outline').addEventListener('click', () => {
-            const type = document.getElementById('filterType').value;
-            const date = document.getElementById('filterDate').value;
+        ];
+
+        // Variables d'état
+        let currentFilter = "all";
+        let currentTypeFilter = "all";
+        let currentSearch = "";
+
+        // Fonction pour filtrer les utilisateurs
+        function filterUsers() {
+            return usersData.filter(user => {
+                // Filtre par statut
+                const statusMatch = currentFilter === "all" || user.status === currentFilter;
+                
+                // Filtre par type
+                const typeMatch = currentTypeFilter === "all" || user.type === currentTypeFilter;
+                
+                // Filtre par recherche
+                const searchMatch = currentSearch === "" || 
+                    user.name.toLowerCase().includes(currentSearch.toLowerCase()) || 
+                    user.email.toLowerCase().includes(currentSearch.toLowerCase()) ||
+                    user.specialty.toLowerCase().includes(currentSearch.toLowerCase());
+                
+                return statusMatch && typeMatch && searchMatch;
+            });
+        }
+
+        // Fonction pour afficher les utilisateurs
+        function renderUsers() {
+            const filteredUsers = filterUsers();
+            const container = document.getElementById('usersTableContainer');
             
-            // Ici vous implémenteriez la logique de filtrage
-            alert(`Filtrage appliqué : Type = ${type}, Date = ${date}`);
+            if (filteredUsers.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-user-slash" style="font-size: 3rem; margin-bottom: 1rem; color: var(--gray);"></i>
+                        <h3>Aucun utilisateur trouvé</h3>
+                        <p>Aucun utilisateur ne correspond à vos critères de recherche.</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            let html = `
+                <div class="users-header">
+                    <h2>${getViewTitle()}</h2>
+                </div>
+                
+                <table class="users-table">
+                    <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Type</th>
+                            <th>Email</th>
+                            <th>Date</th>
+                            <th>Statut</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+            
+            filteredUsers.forEach(user => {
+                html += `
+                    <tr>
+                        <td>
+                            <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                <img src="${user.avatar}" alt="${user.name}" style="width: 30px; height: 30px; border-radius: 50%;">
+                                <span>${user.name}</span>
+                            </div>
+                        </td>
+                        <td>
+                            <span class="type-badge ${user.type === 'medecin' ? 'type-medecin' : 'type-hopital'}">
+                                ${user.type === 'medecin' ? 'Chirurgien' : 'Hôpital'}
+                            </span>
+                        </td>
+                        <td>${user.email}</td>
+                        <td>${user.date}</td>
+                        <td>
+                            <span class="user-status ${getStatusClass(user.status)}">
+                                ${getStatusText(user.status)}
+                            </span>
+                        </td>
+                        <td>
+                            <div class="user-actions">
+                                ${user.status === 'pending' ? `
+                                    <button class="btn btn-sm btn-success approve-btn" data-id="${user.id}">
+                                        <i class="fas fa-check"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-danger reject-btn" data-id="${user.id}">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                ` : user.status === 'approved' ? `
+                                    <button class="btn btn-sm btn-danger delete-btn" data-id="${user.id}">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                ` : `
+                                    <button class="btn btn-sm btn-success restore-btn" data-id="${user.id}">
+                                        <i class="fas fa-redo"></i>
+                                    </button>
+                                `}
+                                <button class="btn btn-sm btn-outline details-btn" data-id="${user.id}">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            });
+            
+            html += `</tbody></table>`;
+            container.innerHTML = html;
+            
+            // Mettre à jour les écouteurs d'événements
+            setupEventListeners();
+        }
+
+        // Fonctions utilitaires
+        function getStatusClass(status) {
+            return {
+                'pending': 'status-pending',
+                'approved': 'status-approved',
+                'rejected': 'status-rejected'
+            }[status] || '';
+        }
+
+        function getStatusText(status) {
+            return {
+                'pending': 'En attente',
+                'approved': 'Approuvé',
+                'rejected': 'Rejeté'
+            }[status] || status;
+        }
+
+        function getViewTitle() {
+            const titles = {
+                'all': 'Tous les utilisateurs',
+                'pending': 'Demandes en attente',
+                'approved': 'Utilisateurs approuvés',
+                'rejected': 'Utilisateurs rejetés'
+            };
+            return titles[currentFilter] || 'Utilisateurs';
+        }
+
+        function setupEventListeners() {
+            // Navigation sidebar
+            document.querySelectorAll('.nav-item a').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Mettre à jour le filtre actif
+                    document.querySelectorAll('.nav-item a').forEach(item => {
+                        item.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                    
+                    currentFilter = this.getAttribute('data-filter');
+                    document.getElementById('currentViewTitle').textContent = getViewTitle();
+                    renderUsers();
+                });
+            });
+            
+            // Filtre par type
+            document.getElementById('userTypeFilter').addEventListener('change', function() {
+                currentTypeFilter = this.value;
+                renderUsers();
+            });
+            
+            // Recherche
+            document.getElementById('searchBtn').addEventListener('click', function() {
+                currentSearch = document.getElementById('searchInput').value;
+                renderUsers();
+            });
+            
+            document.getElementById('searchInput').addEventListener('keyup', function(e) {
+                if (e.key === 'Enter') {
+                    currentSearch = this.value;
+                    renderUsers();
+                }
+            });
+            
+            // Boutons actions (approbation/rejet/suppression)
+            document.querySelectorAll('.approve-btn, .reject-btn, .delete-btn, .restore-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const userId = parseInt(this.getAttribute('data-id'));
+                    const action = this.classList.contains('approve-btn') ? 'approve' :
+                                  this.classList.contains('reject-btn') ? 'reject' :
+                                  this.classList.contains('delete-btn') ? 'delete' : 'restore';
+                    
+                    handleUserAction(userId, action);
+                });
+            });
+            
+            // Boutons détails
+            document.querySelectorAll('.details-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const userId = parseInt(this.getAttribute('data-id'));
+                    showUserDetails(userId);
+                });
+            });
+        }
+
+        function handleUserAction(userId, action) {
+            const user = usersData.find(u => u.id === userId);
+            if (!user) return;
+            
+            let message = '';
+            let successMessage = '';
+            
+            switch(action) {
+                case 'approve':
+                    message = `Êtes-vous sûr de vouloir approuver ${user.name} ?`;
+                    successMessage = `${user.name} a été approuvé avec succès.`;
+                    break;
+                case 'reject':
+                    message = `Êtes-vous sûr de vouloir rejeter ${user.name} ?`;
+                    successMessage = `${user.name} a été rejeté.`;
+                    break;
+                case 'delete':
+                    message = `Êtes-vous sûr de vouloir supprimer ${user.name} ? Cette action est irréversible.`;
+                    successMessage = `${user.name} a été supprimé.`;
+                    break;
+                case 'restore':
+                    message = `Êtes-vous sûr de vouloir réactiver ${user.name} ?`;
+                    successMessage = `${user.name} a été réactivé.`;
+                    break;
+            }
+            
+            document.getElementById('confirmMessage').textContent = message;
+            const confirmModal = document.getElementById('confirmModal');
+            const confirmBtn = document.querySelector('.confirm-btn');
+            
+            // Stocker l'action en cours
+            confirmBtn.setAttribute('data-user-id', userId);
+            confirmBtn.setAttribute('data-action', action);
+            
+            confirmModal.style.display = 'flex';
+        }
+
+        function showUserDetails(userId) {
+            const user = usersData.find(u => u.id === userId);
+            if (!user) return;
+            
+            // Mettre à jour le modal avec les données de l'utilisateur
+            const modal = document.getElementById('userModal');
+            modal.querySelector('.user-avatar').src = user.avatar;
+            modal.querySelector('.user-info h3').textContent = user.name;
+            modal.querySelector('.user-meta:nth-of-type(1) span:first-child').innerHTML = `<i class="fas fa-envelope"></i> ${user.email}`;
+            modal.querySelector('.user-meta:nth-of-type(1) span:last-child').innerHTML = `<i class="fas fa-phone"></i> ${user.phone}`;
+            modal.querySelector('.user-meta:nth-of-type(2) span:first-child').innerHTML = `<i class="fas fa-map-marker-alt"></i> ${user.location}`;
+            modal.querySelector('.user-meta:nth-of-type(2) span:last-child').innerHTML = `<i class="fas fa-user-tag"></i> ${user.specialty}`;
+            modal.querySelector('.user-meta:nth-of-type(3) span:first-child').innerHTML = `<i class="fas fa-calendar-alt"></i> Inscrit le ${user.date}`;
+            
+            const statusSpan = modal.querySelector('.user-meta:nth-of-type(3) span:last-child');
+            statusSpan.className = 'user-status ' + getStatusClass(user.status);
+            statusSpan.textContent = getStatusText(user.status);
+            
+            // Documents
+            const documentsList = modal.querySelector('.documents-list');
+            documentsList.innerHTML = '<h4>Documents vérifiables :</h4>';
+            
+            user.documents.forEach(doc => {
+                const iconClass = {
+                    'pdf': 'fa-file-pdf text-danger',
+                    'certificate': 'fa-file-certificate text-success',
+                    'id': 'fa-id-card text-primary'
+                }[doc.type] || 'fa-file';
+                
+                documentsList.innerHTML += `
+                    <div class="document-item">
+                        <i class="fas ${iconClass}"></i>
+                        <a href="#" target="_blank">${doc.name}</a>
+                    </div>
+                `;
+            });
+            
+            // Boutons actions dans le modal
+            const approveBtn = modal.querySelector('.approve-btn');
+            const rejectBtn = modal.querySelector('.reject-btn');
+            
+            if (user.status === 'pending') {
+                approveBtn.style.display = 'inline-flex';
+                rejectBtn.style.display = 'inline-flex';
+                
+                approveBtn.setAttribute('data-id', user.id);
+                rejectBtn.setAttribute('data-id', user.id);
+            } else {
+                approveBtn.style.display = 'none';
+                rejectBtn.style.display = 'none';
+            }
+            
+            modal.style.display = 'flex';
+        }
+
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', function() {
+            // Confirmation des actions
+            document.querySelector('.confirm-btn').addEventListener('click', function() {
+                const userId = parseInt(this.getAttribute('data-user-id'));
+                const action = this.getAttribute('data-action');
+                
+                // Trouver l'index de l'utilisateur
+                const userIndex = usersData.findIndex(u => u.id === userId);
+                if (userIndex === -1) return;
+                
+                // Mettre à jour le statut
+                switch(action) {
+                    case 'approve':
+                        usersData[userIndex].status = 'approved';
+                        break;
+                    case 'reject':
+                        usersData[userIndex].status = 'rejected';
+                        break;
+                    case 'delete':
+                        // Suppression (dans une vraie app, vous feriez une requête API)
+                        usersData.splice(userIndex, 1);
+                        break;
+                    case 'restore':
+                        usersData[userIndex].status = 'pending';
+                        break;
+                }
+                
+                // Fermer le modal et actualiser
+                document.getElementById('confirmModal').style.display = 'none';
+                renderUsers();
+                
+                // Afficher un message de succès (vous pourriez utiliser un système de notifications plus élaboré)
+                alert(`Action effectuée avec succès !`);
+            });
+            
+            // Initial render
+            renderUsers();
         });
     </script>
 </body>
