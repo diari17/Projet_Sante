@@ -11,7 +11,12 @@ class Patient extends Model
     protected $primaryKey = 'idPatient';
 
     protected $fillable = [
-        'nom', 'prenom', 'age', 'maladie', 'numero', 'sexe'
+        'nom',
+        'prenom',
+        'age',
+        'maladie',
+        'numero',
+        'sexe'
     ];
 
     // Un patient peut avoir plusieurs interventions

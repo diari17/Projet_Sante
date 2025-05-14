@@ -583,7 +583,7 @@
                 <button class="modal-close">&times;</button>
             </div>
             
-            <form id="interventionForm" action="traitementCreerIntervention" method="POST">
+            <form id="interventionForm" action="traitementCreerPatient" method="POST">
                 @csrf
                 <input type="hidden" id="interventionId">
                 
@@ -616,95 +616,12 @@
                         </div>
                         <div class="form-group">
                             <label for="patientFile">Numéro dossier</label>
-                            <input type="text" id="patientFile" class="form-control" required>
+                            <input type="text" name="numDossier" id="patientFile" class="form-control" required>
                         </div>
                     </div>
                 </div>
                 
-                <!-- <div class="form-section"> -->
-                    <!-- <h3 class="form-section-title"><i class="fas fa-procedures"></i> Détails intervention</h3>
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label for="interventionType">Type d'intervention</label>
-                            <input type="text" name="typeInt"  id="interventionType" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="specialty">Spécialité requise</label>
-                            <select id="specialty" name="speRequise" class="form-control" required>
-                                <option value="">Sélectionner</option>
-                                <option value="chirurgie_generale">Chirurgie générale</option>
-                                <option value="chirurgie_digestive">Chirurgie digestive</option>
-                                <option value="chirurgie_orthopedique">Chirurgie orthopédique</option>
-                                <option value="chirurgie_cardiovasculaire">Chirurgie cardiovasculaire</option>
-                                <option value="chirurgie_thoracique">Chirurgie thoracique</option>
-                                <option value="neurochirurgie">Neurochirurgie</option>
-                                <option value="chirurgie_pediatrique">Chirurgie pédiatrique</option>
-                                <option value="chirurgie_plastique">Chirurgie plastique</option>
-                                <option value="chirurgie_urologique">Chirurgie urologique</option>
-                                <option value="chirurgie_orl">Chirurgie ORL</option>
-                                <option value="chirurgie_maxillo_faciale">Chirurgie maxillo-faciale</option>
-                                <option value="chirurgie_gynecologique">Chirurgie gynécologique / obstétrique</option>
-                                <option value="ophtalmologie_chirurgicale">Ophtalmologie (chirurgicale)</option>
-                                <option value="cardiologie">Cardiologie</option>
-                                <option value="pneumologie">Pneumologie</option>
-                                <option value="neurologie">Neurologie</option>
-                                <option value="nephrologie">Néphrologie</option>
-                                <option value="hematologie">Hématologie</option>
-                                <option value="endocrinologie">Endocrinologie</option>
-                                <option value="gastro_enterologie">Gastro-entérologie</option>
-                                <option value="rhumatologie">Rhumatologie</option>
-                                <option value="dermatologie">Dermatologie</option>
-                                <option value="pediatrie">Pédiatrie</option>
-                                <option value="geriatrie">Gériatrie</option>
-                                <option value="medecine_generale">Médecine générale</option>
-                                <option value="infectiologie">Infectiologie</option>
-                                <option value="medecine_interne">Médecine interne</option>
-                                <option value="psychiatrie">Psychiatrie</option>
-                                <option value="medecine_du_travail">Médecine du travail</option>
-                                <option value="anesthesie_reanimation">Anesthésie-réanimation</option>
-                                <option value="radiologie">Radiologie</option>
-                                <option value="medecine_legale">Médecine légale</option>
-                                <option value="medecine_urgence">Médecine d’urgence</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="interventionDate">Date prévue</label>
-                            <input type="date" name="date" id="interventionDate" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="interventionTime">Heure prévue</label>
-                            <input type="time" name="heure" id="interventionTime" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="estimatedDuration">Durée estimée (heures)</label>
-                            <input type="number" name="duree" id="estimatedDuration" class="form-control" min="0.5" max="12" step="0.5" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="urgency">Niveau d'urgence</label>
-                            <select id="urgency" name="niveau" class="form-control" required>
-                                <option value="normal">Normal</option>
-                                <option value="urgent">Urgent</option>
-                                <option value="tres-urgent">Très urgent</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="rénuméré">Intervention rénumérée?</label>
-                            <select id="rénuméré" class="form-control" required>
-                                <option value="Non">Non</option>
-                                <option value="Oui">Oui</option>
-                            </select>
-                        </div>
-                        <div class="form-group price-group" style="display: none;">
-                            <label for="tarif">Tarif proposé (Fcfa)</label>
-                            <input type="number" name="renumeration" id="tarif" class="form-control" placeholder="1200" min="0" step="50">
-                        </div>
-
-                    </div>
-                    <div class="form-group">
-                        <label for="interventionDetails">Détails médicaux importants</label>
-                        <textarea id="interventionDetails" name="details" class="form-control" placeholder="Antécédents médicaux, allergies, médicaments actuels, etc."></textarea>
-                    </div>
-                </div> -->
+             
                 
                 <div class="form-actions">
                 <button type="button" onclick="window.location.href='CreerInterv'" class="btn btn-outline">Annuler</button>
