@@ -66,8 +66,9 @@ Route::get('/CreerInterv', function () {
 Route::get('/DetailsInterv', function () {
     return view('Hopital/DetailsInterv');
 });
-
+Route ::post('traitementCreerPatient', [HopitalController::class, 'traitementCreerPatient']);
 Route::post('traitementCreerIntervention', [HopitalController::class, 'traitementCreerIntervention']);
+Route::get('DetailsInterv', [HopitalController::class, 'DetailsInterv']);
 
 // Route::get('/ListMed', function () {
 //     return view('Hopital/ListMed');

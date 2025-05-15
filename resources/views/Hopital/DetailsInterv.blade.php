@@ -380,7 +380,7 @@
                     <h3>Récapitulatif de l'intervention</h3>
                     <div class="summary-item">
                         <span class="summary-label">Patient :</span>
-                        <span id="summary-patient">Jean Martin (42 ans, Masculin)</span>
+                        <span id="summary-patient">{{ $patient->nom }}</span>
                     </div>
                     <div class="summary-item">
                         <span class="summary-label">Type d'intervention :</span>

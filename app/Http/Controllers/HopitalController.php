@@ -46,6 +46,32 @@ class HopitalController extends Controller
         return redirect('/')->with('success', 'Inscription réussie !');
     }
 
+    public function traitementCreerPatient(Request $request){
+
+        $request->validate([
+            'nomPatient' => 'required|string|max:255',
+            'prenomPatient' => 'required|string|max:255',
+            'agePatient' => 'required|string|max:255',
+            'sexePatient' => 'required|string|max:255',
+            'numDossier' => 'required|string|max:255',
+            'maladie' => 'required|string|max:255',
+        ]);
+
+
+        $patient = new Patient();
+        $patient->nom = $request->nomPatient;
+        $patient->prenom = $request->prenomPatient;
+        $patient->age = $request->agePatient;
+        $patient->sexe = $request->sexePatient;
+        $patient->numero = $request->numDossier;
+        $patient->maladie = $request->maladie;
+
+        // dd($patient);
+        $patient->save();
+        return view('Hopital.DetailsInterv', compact('patient'))->with('success', 'Patient créé avec succès !');
+
+    }
+
     public function traitementCreerIntervention(Request $request){
 
         // Validation des données
