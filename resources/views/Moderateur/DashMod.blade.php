@@ -528,8 +528,8 @@
                 <h4 style="margin-bottom: 0.5rem; font-size: 0.9rem;">Filtrer par type :</h4>
                 <select id="userTypeFilter" class="form-control">
                     <option value="all">Tous les types</option>
-                    <option value="medecin">Médecins/Chirurgiens</option>
-                    <option value="hopital">Hôpitaux/Cliniques</option>
+                    <option value="chirurgien">Chirurgiens</option>
+                    <option value="etablissement">Établissements</option>
                 </select>
             </div>
         </aside>
@@ -640,90 +640,10 @@
     </div>
 
     <script>
-        // Données simulées
-        const usersData = [
-            {
-                id: 1,
-                name: "Dr. Jean Martin",
-                type: "medecin",
-                specialty: "Chirurgien orthopédique",
-                email: "jean.martin@example.com",
-                phone: "+33 6 12 34 56 78",
-                location: "Lyon, France",
-                date: "15/07/2023",
-                status: "pending",
-                avatar: "https://randomuser.me/api/portraits/men/32.jpg",
-                documents: [
-                    { name: "Diplôme_de_Chirurgie.pdf", type: "pdf" },
-                    { name: "Certificat_Spécialisation.pdf", type: "certificate" },
-                    { name: "Carte_Professionnelle.pdf", type: "id" }
-                ]
-            },
-            {
-                id: 2,
-                name: "Clinique Saint-Louis",
-                type: "hopital",
-                specialty: "Hôpital général",
-                email: "contact@clinique-saintlouis.fr",
-                phone: "+33 1 23 45 67 89",
-                location: "Paris, France",
-                date: "14/07/2023",
-                status: "pending",
-                avatar: "https://randomuser.me/api/portraits/women/45.jpg",
-                documents: [
-                    { name: "Agrément_Clinique.pdf", type: "pdf" },
-                    { name: "Certification_HAS.pdf", type: "certificate" }
-                ]
-            },
-            {
-                id: 3,
-                name: "Dr. Sophie Lambert",
-                type: "medecin",
-                specialty: "Chirurgien cardiaque",
-                email: "sophie.lambert@example.com",
-                phone: "+33 6 98 76 54 32",
-                location: "Marseille, France",
-                date: "12/07/2023",
-                status: "approved",
-                avatar: "https://randomuser.me/api/portraits/women/65.jpg",
-                documents: [
-                    { name: "Diplôme_Cardiologie.pdf", type: "pdf" },
-                    { name: "Autorisation_Exercice.pdf", type: "certificate" }
-                ]
-            },
-            {
-                id: 4,
-                name: "Dr. Pierre Dubois",
-                type: "medecin",
-                specialty: "Neurochirurgien",
-                email: "pierre.dubois@example.com",
-                phone: "+33 6 45 67 89 01",
-                location: "Toulouse, France",
-                date: "10/07/2023",
-                status: "rejected",
-                avatar: "https://randomuser.me/api/portraits/men/22.jpg",
-                documents: [
-                    { name: "Diplôme_Neurochirurgie.pdf", type: "pdf" }
-                ]
-            },
-            {
-                id: 5,
-                name: "Hôpital Européen",
-                type: "hopital",
-                specialty: "Centre hospitalier",
-                email: "contact@hopital-europeen.fr",
-                phone: "+33 1 98 76 54 32",
-                location: "Lille, France",
-                date: "18/07/2023",
-                status: "approved",
-                avatar: "https://randomuser.me/api/portraits/men/75.jpg",
-                documents: [
-                    { name: "Statuts_Hopital.pdf", type: "pdf" },
-                    { name: "Certification_Qualité.pdf", type: "certificate" }
-                ]
-            }
-        ];
-
+        // Données initiales
+        let chirurgiens = @json($chirurgiens ?? collect());
+        let etablissements = @json($etablissements ?? collect());
+        
         // Variables d'état
         let currentFilter = "all";
         let currentTypeFilter = "all";
@@ -731,21 +651,29 @@
 
         // Fonction pour filtrer les utilisateurs
         function filterUsers() {
-            return usersData.filter(user => {
-                // Filtre par statut
+            let filteredChirurgiens = chirurgiens.filter(user => {
                 const statusMatch = currentFilter === "all" || user.status === currentFilter;
-                
-                // Filtre par type
-                const typeMatch = currentTypeFilter === "all" || user.type === currentTypeFilter;
-                
-                // Filtre par recherche
+                const typeMatch = currentTypeFilter === "all" || currentTypeFilter === "chirurgien";
                 const searchMatch = currentSearch === "" || 
-                    user.name.toLowerCase().includes(currentSearch.toLowerCase()) || 
+                    user.nom.toLowerCase().includes(currentSearch.toLowerCase()) || 
                     user.email.toLowerCase().includes(currentSearch.toLowerCase()) ||
-                    user.specialty.toLowerCase().includes(currentSearch.toLowerCase());
+                    user.specialite.toLowerCase().includes(currentSearch.toLowerCase());
                 
                 return statusMatch && typeMatch && searchMatch;
             });
+
+            let filteredEtablissements = etablissements.filter(user => {
+                const statusMatch = currentFilter === "all" || user.status === currentFilter;
+                const typeMatch = currentTypeFilter === "all" || currentTypeFilter === "etablissement";
+                const searchMatch = currentSearch === "" || 
+                    user.nom.toLowerCase().includes(currentSearch.toLowerCase()) || 
+                    user.email.toLowerCase().includes(currentSearch.toLowerCase()) ||
+                    user.type.toLowerCase().includes(currentSearch.toLowerCase());
+                
+                return statusMatch && typeMatch && searchMatch;
+            });
+
+            return [...filteredChirurgiens, ...filteredEtablissements];
         }
 
         // Fonction pour afficher les utilisateurs
@@ -784,21 +712,25 @@
             `;
             
             filteredUsers.forEach(user => {
+                const isChirurgien = user.hasOwnProperty('specialite');
+                const type = isChirurgien ? 'chirurgien' : 'etablissement';
+                const specialty = isChirurgien ? user.specialite : user.type;
+                
                 html += `
                     <tr>
                         <td>
                             <div style="display: flex; align-items: center; gap: 0.5rem;">
-                                <img src="${user.avatar}" alt="${user.name}" style="width: 30px; height: 30px; border-radius: 50%;">
-                                <span>${user.name}</span>
+                                <img src="${user.photo || 'https://randomuser.me/api/portraits/men/32.jpg'}" alt="${user.nom}" style="width: 30px; height: 30px; border-radius: 50%;">
+                                <span>${user.nom}</span>
                             </div>
                         </td>
                         <td>
-                            <span class="type-badge ${user.type === 'medecin' ? 'type-medecin' : 'type-hopital'}">
-                                ${user.type === 'medecin' ? 'Chirurgien' : 'Hôpital'}
+                            <span class="type-badge ${type === 'chirurgien' ? 'type-medecin' : 'type-hopital'}">
+                                ${type === 'chirurgien' ? 'Chirurgien' : 'Établissement'}
                             </span>
                         </td>
                         <td>${user.email}</td>
-                        <td>${user.date}</td>
+                        <td>${user.created_at}</td>
                         <td>
                             <span class="user-status ${getStatusClass(user.status)}">
                                 ${getStatusText(user.status)}
@@ -807,22 +739,22 @@
                         <td>
                             <div class="user-actions">
                                 ${user.status === 'pending' ? `
-                                    <button class="btn btn-sm btn-success approve-btn" data-id="${user.id}">
+                                    <button class="btn btn-sm btn-success approve-btn" data-id="${user.id}" data-type="${type}">
                                         <i class="fas fa-check"></i>
                                     </button>
-                                    <button class="btn btn-sm btn-danger reject-btn" data-id="${user.id}">
+                                    <button class="btn btn-sm btn-danger reject-btn" data-id="${user.id}" data-type="${type}">
                                         <i class="fas fa-times"></i>
                                     </button>
                                 ` : user.status === 'approved' ? `
-                                    <button class="btn btn-sm btn-danger delete-btn" data-id="${user.id}">
+                                    <button class="btn btn-sm btn-danger delete-btn" data-id="${user.id}" data-type="${type}">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 ` : `
-                                    <button class="btn btn-sm btn-success restore-btn" data-id="${user.id}">
+                                    <button class="btn btn-sm btn-success restore-btn" data-id="${user.id}" data-type="${type}">
                                         <i class="fas fa-redo"></i>
                                     </button>
                                 `}
-                                <button class="btn btn-sm btn-outline details-btn" data-id="${user.id}">
+                                <button class="btn btn-sm btn-outline details-btn" data-id="${user.id}" data-type="${type}">
                                     <i class="fas fa-eye"></i>
                                 </button>
                             </div>
@@ -871,7 +803,6 @@
                 link.addEventListener('click', function(e) {
                     e.preventDefault();
                     
-                    // Mettre à jour le filtre actif
                     document.querySelectorAll('.nav-item a').forEach(item => {
                         item.classList.remove('active');
                     });
@@ -902,15 +833,16 @@
                 }
             });
             
-            // Boutons actions (approbation/rejet/suppression)
+            // Boutons actions
             document.querySelectorAll('.approve-btn, .reject-btn, .delete-btn, .restore-btn').forEach(btn => {
                 btn.addEventListener('click', function() {
                     const userId = parseInt(this.getAttribute('data-id'));
+                    const userType = this.getAttribute('data-type');
                     const action = this.classList.contains('approve-btn') ? 'approve' :
                                   this.classList.contains('reject-btn') ? 'reject' :
                                   this.classList.contains('delete-btn') ? 'delete' : 'restore';
                     
-                    handleUserAction(userId, action);
+                    handleUserAction(userId, action, userType);
                 });
             });
             
@@ -918,34 +850,43 @@
             document.querySelectorAll('.details-btn').forEach(btn => {
                 btn.addEventListener('click', function() {
                     const userId = parseInt(this.getAttribute('data-id'));
-                    showUserDetails(userId);
+                    const userType = this.getAttribute('data-type');
+                    showUserDetails(userId, userType);
                 });
             });
         }
 
-        function handleUserAction(userId, action) {
-            const user = usersData.find(u => u.id === userId);
+        function handleUserAction(userId, action, userType) {
+            const user = userType === 'chirurgien' 
+                ? chirurgiens.find(u => u.id === userId)
+                : etablissements.find(u => u.id === userId);
+                
             if (!user) return;
             
             let message = '';
             let successMessage = '';
+            let endpoint = '';
             
             switch(action) {
                 case 'approve':
-                    message = `Êtes-vous sûr de vouloir approuver ${user.name} ?`;
-                    successMessage = `${user.name} a été approuvé avec succès.`;
+                    message = `Êtes-vous sûr de vouloir approuver ${user.nom} ?`;
+                    successMessage = `${user.nom} a été approuvé avec succès.`;
+                    endpoint = `/${userType}s/${userId}/approve`;
                     break;
                 case 'reject':
-                    message = `Êtes-vous sûr de vouloir rejeter ${user.name} ?`;
-                    successMessage = `${user.name} a été rejeté.`;
+                    message = `Êtes-vous sûr de vouloir rejeter ${user.nom} ?`;
+                    successMessage = `${user.nom} a été rejeté.`;
+                    endpoint = `/${userType}s/${userId}/reject`;
                     break;
                 case 'delete':
-                    message = `Êtes-vous sûr de vouloir supprimer ${user.name} ? Cette action est irréversible.`;
-                    successMessage = `${user.name} a été supprimé.`;
+                    message = `Êtes-vous sûr de vouloir supprimer ${user.nom} ? Cette action est irréversible.`;
+                    successMessage = `${user.nom} a été supprimé.`;
+                    endpoint = `/${userType}s/${userId}`;
                     break;
                 case 'restore':
-                    message = `Êtes-vous sûr de vouloir réactiver ${user.name} ?`;
-                    successMessage = `${user.name} a été réactivé.`;
+                    message = `Êtes-vous sûr de vouloir réactiver ${user.nom} ?`;
+                    successMessage = `${user.nom} a été réactivé.`;
+                    endpoint = `/${userType}s/${userId}/restore`;
                     break;
             }
             
@@ -953,26 +894,29 @@
             const confirmModal = document.getElementById('confirmModal');
             const confirmBtn = document.querySelector('.confirm-btn');
             
-            // Stocker l'action en cours
             confirmBtn.setAttribute('data-user-id', userId);
             confirmBtn.setAttribute('data-action', action);
+            confirmBtn.setAttribute('data-type', userType);
+            confirmBtn.setAttribute('data-endpoint', endpoint);
             
             confirmModal.style.display = 'flex';
         }
 
-        function showUserDetails(userId) {
-            const user = usersData.find(u => u.id === userId);
+        function showUserDetails(userId, userType) {
+            const user = userType === 'chirurgien' 
+                ? chirurgiens.find(u => u.id === userId)
+                : etablissements.find(u => u.id === userId);
+                
             if (!user) return;
             
-            // Mettre à jour le modal avec les données de l'utilisateur
             const modal = document.getElementById('userModal');
-            modal.querySelector('.user-avatar').src = user.avatar;
-            modal.querySelector('.user-info h3').textContent = user.name;
+            modal.querySelector('.user-avatar').src = user.photo || 'https://randomuser.me/api/portraits/men/32.jpg';
+            modal.querySelector('.user-info h3').textContent = user.nom;
             modal.querySelector('.user-meta:nth-of-type(1) span:first-child').innerHTML = `<i class="fas fa-envelope"></i> ${user.email}`;
-            modal.querySelector('.user-meta:nth-of-type(1) span:last-child').innerHTML = `<i class="fas fa-phone"></i> ${user.phone}`;
-            modal.querySelector('.user-meta:nth-of-type(2) span:first-child').innerHTML = `<i class="fas fa-map-marker-alt"></i> ${user.location}`;
-            modal.querySelector('.user-meta:nth-of-type(2) span:last-child').innerHTML = `<i class="fas fa-user-tag"></i> ${user.specialty}`;
-            modal.querySelector('.user-meta:nth-of-type(3) span:first-child').innerHTML = `<i class="fas fa-calendar-alt"></i> Inscrit le ${user.date}`;
+            modal.querySelector('.user-meta:nth-of-type(1) span:last-child').innerHTML = `<i class="fas fa-phone"></i> ${user.telephone || 'Non renseigné'}`;
+            modal.querySelector('.user-meta:nth-of-type(2) span:first-child').innerHTML = `<i class="fas fa-map-marker-alt"></i> ${user.adresse || 'Non renseigné'}`;
+            modal.querySelector('.user-meta:nth-of-type(2) span:last-child').innerHTML = `<i class="fas fa-user-tag"></i> ${userType === 'chirurgien' ? user.specialite : user.type}`;
+            modal.querySelector('.user-meta:nth-of-type(3) span:first-child').innerHTML = `<i class="fas fa-calendar-alt"></i> Inscrit le ${user.created_at}`;
             
             const statusSpan = modal.querySelector('.user-meta:nth-of-type(3) span:last-child');
             statusSpan.className = 'user-status ' + getStatusClass(user.status);
@@ -982,34 +926,17 @@
             const documentsList = modal.querySelector('.documents-list');
             documentsList.innerHTML = '<h4>Documents vérifiables :</h4>';
             
-            user.documents.forEach(doc => {
-                const iconClass = {
-                    'pdf': 'fa-file-pdf text-danger',
-                    'certificate': 'fa-file-certificate text-success',
-                    'id': 'fa-id-card text-primary'
-                }[doc.type] || 'fa-file';
-                
-                documentsList.innerHTML += `
-                    <div class="document-item">
-                        <i class="fas ${iconClass}"></i>
-                        <a href="#" target="_blank">${doc.name}</a>
-                    </div>
-                `;
-            });
-            
-            // Boutons actions dans le modal
-            const approveBtn = modal.querySelector('.approve-btn');
-            const rejectBtn = modal.querySelector('.reject-btn');
-            
-            if (user.status === 'pending') {
-                approveBtn.style.display = 'inline-flex';
-                rejectBtn.style.display = 'inline-flex';
-                
-                approveBtn.setAttribute('data-id', user.id);
-                rejectBtn.setAttribute('data-id', user.id);
+            if (user.documents && user.documents.length > 0) {
+                user.documents.forEach(doc => {
+                    documentsList.innerHTML += `
+                        <div class="document-item">
+                            <i class="fas fa-file-pdf" style="color: var(--danger);"></i>
+                            <a href="${doc.path}" target="_blank">${doc.nom}</a>
+                        </div>
+                    `;
+                });
             } else {
-                approveBtn.style.display = 'none';
-                rejectBtn.style.display = 'none';
+                documentsList.innerHTML += '<p>Aucun document disponible</p>';
             }
             
             modal.style.display = 'flex';
@@ -1021,34 +948,60 @@
             document.querySelector('.confirm-btn').addEventListener('click', function() {
                 const userId = parseInt(this.getAttribute('data-user-id'));
                 const action = this.getAttribute('data-action');
+                const userType = this.getAttribute('data-type');
+                const endpoint = this.getAttribute('data-endpoint');
                 
-                // Trouver l'index de l'utilisateur
-                const userIndex = usersData.findIndex(u => u.id === userId);
-                if (userIndex === -1) return;
-                
-                // Mettre à jour le statut
-                switch(action) {
-                    case 'approve':
-                        usersData[userIndex].status = 'approved';
-                        break;
-                    case 'reject':
-                        usersData[userIndex].status = 'rejected';
-                        break;
-                    case 'delete':
-                        // Suppression (dans une vraie app, vous feriez une requête API)
-                        usersData.splice(userIndex, 1);
-                        break;
-                    case 'restore':
-                        usersData[userIndex].status = 'pending';
-                        break;
-                }
-                
-                // Fermer le modal et actualiser
-                document.getElementById('confirmModal').style.display = 'none';
-                renderUsers();
-                
-                // Afficher un message de succès (vous pourriez utiliser un système de notifications plus élaboré)
-                alert(`Action effectuée avec succès !`);
+                // Faire la requête API
+                fetch(endpoint, {
+                    method: action === 'delete' ? 'DELETE' : 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Mettre à jour les données locales
+                        if (action === 'delete') {
+                            if (userType === 'chirurgien') {
+                                chirurgiens = chirurgiens.filter(u => u.id !== userId);
+                            } else {
+                                etablissements = etablissements.filter(u => u.id !== userId);
+                            }
+                        } else {
+                            const user = userType === 'chirurgien' 
+                                ? chirurgiens.find(u => u.id === userId)
+                                : etablissements.find(u => u.id === userId);
+                                
+                            if (user) {
+                                switch(action) {
+                                    case 'approve':
+                                        user.status = 'approved';
+                                        break;
+                                    case 'reject':
+                                        user.status = 'rejected';
+                                        break;
+                                    case 'restore':
+                                        user.status = 'pending';
+                                        break;
+                                }
+                            }
+                        }
+                        
+                        // Fermer le modal et actualiser
+                        document.getElementById('confirmModal').style.display = 'none';
+                        renderUsers();
+                        
+                        // Afficher le message de succès
+                        alert(data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Erreur:', error);
+                    alert('Une erreur est survenue lors de l\'opération.');
+                });
             });
             
             // Initial render
