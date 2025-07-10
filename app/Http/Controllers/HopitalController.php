@@ -2,123 +2,142 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Models\Etablissement;
 use App\Models\Intervention;
 use App\Models\Patient;
-use Illuminate\Http\Request;
+use App\Models\Candidature;
 use Illuminate\Support\Facades\Auth;
+
 class HopitalController extends Controller
 {
-    //
-    public function Inscription()
+    public function dashboard()
     {
-        return view('Inscription');
+        $etablissement = Auth::guard('etablissement')->user();
+        $interventions = Intervention::where('etablissement_id', $etablissement->id)
+            ->orderBy('created_at', 'desc')
+            ->take(5)
+            ->get();
+
+        return view('Hopital/DashHospi', compact('etablissement', 'interventions'));
     }
+
+    public function createIntervention()
+    {
+        return view('Hopital/CreerInterv');
+    }
+
+    public function traitementCreerIntervention(Request $request)
+    {
+        $request->validate([
+            'type_intervention' => 'required',
+            'date_souhaitee' => 'required|date',
+            'description' => 'required',
+            'urgence' => 'required'
+        ]);
+
+        $etablissement = Auth::guard('etablissement')->user();
+
+        Intervention::create([
+            'etablissement_id' => $etablissement->id,
+            'type_intervention' => $request->type_intervention,
+            'date_souhaitee' => $request->date_souhaitee,
+            'description' => $request->description,
+            'urgence' => $request->urgence,
+            'statut' => 'ouvert'
+        ]);
+
+        return redirect('/DashHospi')->with('success', 'Intervention créée avec succès');
+    }
+
+    public function detailsIntervention($id)
+    {
+        $intervention = Intervention::with(['patient', 'candidatures.chirurgien'])
+            ->findOrFail($id);
+
+        return view('Hopital/DetailsInterv', compact('intervention'));
+    }
+
+    public function listMedecins()
+    {
+        $chirurgiens = \App\Models\Chirurgien::where('statut', 'validé')
+            ->orderBy('specialite')
+            ->get();
+
+        return view('Hopital/ListMed', compact('chirurgiens'));
+    }
+
+    public function listCandidatures()
+    {
+        $etablissement = Auth::guard('etablissement')->user();
+        $candidatures = Candidature::whereHas('intervention', function($query) use ($etablissement) {
+            $query->where('etablissement_id', $etablissement->id);
+        })->with(['chirurgien', 'intervention'])
+        ->orderBy('created_at', 'desc')
+        ->get();
+
+        return view('Hopital/ListCandidatures', compact('candidatures'));
+    }
+
+    public function sendPropositions()
+    {
+        $etablissement = Auth::guard('etablissement')->user();
+        $interventions = Intervention::where('etablissement_id', $etablissement->id)
+            ->where('statut', 'ouvert')
+            ->get();
+
+        return view('Hopital/SendPropositions', compact('interventions'));
+    }
+
+    public function logout()
+    {
+        Auth::guard('etablissement')->logout();
+        return redirect('/');
+    }
+
+    public function traitementCreerPatient(Request $request)
+    {
+        $request->validate([
+            'nom' => 'required',
+            'prenom' => 'required',
+            'age' => 'required|numeric',
+            'sexe' => 'required',
+            'antecedents' => 'nullable'
+        ]);
+
+        \App\Models\Patient::create([
+            'nom' => $request->nom,
+            'prenom' => $request->prenom,
+            'age' => $request->age,
+            'sexe' => $request->sexe,
+            'antecedents' => $request->antecedents,
+        ]);
+
+        return redirect()->back()->with('success', 'Patient créé avec succès');
+    }
+
     public function traitementInsHopital(Request $request)
     {
-        // Validation des données
         $request->validate([
-            'nom' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:etablissements',
-            'password' => 'required|string|min:8|confirmed',
-            'telephone' => 'required|string|max:15',
-            'adresse' => 'required|string|max:255',
-            'region' => 'required|string|max:255',
-            'statut' => 'required|string|max:255',
-            'nomRes' => 'required|string|max:255',
-            'fonctionRes' => 'required|string|max:255',
+            'nom' => 'required',
+            'adresse' => 'required',
+            'telephone' => 'required',
+            'email' => 'required|email|unique:etablissements,email',
+            'region' => 'required',
+            'statut' => 'required',
+            'password' => 'required|confirmed',
         ]);
 
-        // Création de l'utilisateur
-        $etablissement = new Etablissement();
-        $etablissement->nom = $request->nom;
-        $etablissement->email = $request->email;
-        $etablissement->password = bcrypt($request->password);
-        $etablissement->telephone = $request->telephone;
-        $etablissement->adresse = $request->adresse;
-        $etablissement->region = $request->region;
-        $etablissement->statut = $request->statut;
-        $etablissement->nomRes = $request->nomRes;
-        $etablissement->fonctionRes = $request->fonctionRes;
-        // dd($etablissement);
-        $etablissement->save();
-
-        return redirect('/')->with('success', 'Inscription réussie !');
-    }
-
-    public function traitementCreerPatient(Request $request){
-
-        $request->validate([
-            'nomPatient' => 'required|string|max:255',
-            'prenomPatient' => 'required|string|max:255',
-            'agePatient' => 'required|string|max:255',
-            'sexePatient' => 'required|string|max:255',
-            'numDossier' => 'required|string|max:255',
-            'maladie' => 'required|string|max:255',
+        \App\Models\Etablissement::create([
+            'nom' => $request->nom,
+            'adresse' => $request->adresse,
+            'telephone' => $request->telephone,
+            'email' => $request->email,
+            'region' => $request->region,
+            'statut' => $request->statut,
+            'password' => bcrypt($request->password),
         ]);
 
-
-        $patient = new Patient();
-        $patient->nom = $request->nomPatient;
-        $patient->prenom = $request->prenomPatient;
-        $patient->age = $request->agePatient;
-        $patient->sexe = $request->sexePatient;
-        $patient->numero = $request->numDossier;
-        $patient->maladie = $request->maladie;
-
-        // dd($patient);
-        $patient->save();
-        return view('Hopital.DetailsInterv', compact('patient'))->with('success', 'Patient créé avec succès !');
-
+        return redirect('/Login')->with('success', 'Inscription réussie, vous pouvez vous connecter.');
     }
-
-    public function traitementCreerIntervention(Request $request){
-
-        // Validation des données
-        $request->validate([
-            'nomPatient' => 'required|string|max:255',
-            'agePatient' => 'required|string|max:255',
-            'sexePatient' => 'required|string|max:255',
-            'maladie' => 'required|string|max:255',
-
-            'typeInt' => 'required|string|max:255',
-            'speRequise' => 'required|string|max:255',
-            'date' => 'required|date',
-            'heure' => 'required|date_format:H:i',
-            'duree' => 'required|integer|min:1',
-            'niveau' => 'required|string|max:255',
-            'renumeration' => 'required|numeric|min:0',
-            'details' => 'string|max:255',
-        ]);
-        // Création de l'intervention
-        $intervention = new Intervention();
-        $intervention->date = $request->date;
-        $intervention->heure = $request->heure;
-        $intervention->duree = $request->duree;
-        $intervention->niveau = $request->niveau;
-        $intervention->renumeration = $request->renumeration;
-        $intervention->SpeRequise = $request->speRequise;
-        $intervention->typeInt = $request->typeInt;
-        $intervention->details = $request->details;
-        // $intervention->hopital = Intervention::find(Auth::id());
-        $patient = new Patient();
-        $patient->nomPatient = $request->nomPatient;
-        $patient->agePatient = $request->agePatient;
-        $patient->sexePatient = $request->sexePatient;
-        $patient->maladie = $request->maladie;
-        // $test = Auth::id();
-        
-        
-
-        // dd($patient);
-
-        
-
-        // dd($test);
-        // $intervention->save();
-
-        return redirect('/')->with('success', 'Intervention créée avec succès !');
-
-    }
-   
 }

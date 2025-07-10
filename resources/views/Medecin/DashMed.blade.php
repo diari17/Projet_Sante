@@ -497,59 +497,25 @@
                 {{ session('error') }}
             </div>
             @endif
-            
-            <!-- doit contenir les n premieres candidatures -->
-            <div class="candidatures-container">
-                <h3>Mes candidatures récentes</h3>
+
+            <h3>Mes dernières candidatures</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Intervention</th>
+                        <th>Date</th>
+                        <th>Statut</th>
+                        <th>Message</th>
+                    </tr>
+                </thead>
+                <!--  PRENDRE EN COMPTE CELA POUR LES CONTROLLER POUR POUVOIR ENUMERER LES CANDIDATURES-->
                 
-                <div class="candidature-item">
-                    <div class="candidature-info">
-                        <h4>Prothèse de hanche gauche</h4>
-                        <div class="candidature-meta">
-                            <span><i class="fas fa-hospital"></i> CHU de Lyon</span>
-                            <span><i class="fas fa-calendar-alt"></i> 15/07/2023</span>
-                        </div>
-                        <span class="candidature-status status-en-attente">En attente</span>
-                    </div>
-                    <div>
-                        <button class="btn btn-outline">Détails</button>
-                    </div>
-                </div>
+            </table> <!-- new -->
                 
-                <div class="candidature-item">
-                    <div class="candidature-info">
-                        <h4>Arthroscopie du genou droit</h4>
-                        <div class="candidature-meta">
-                            <span><i class="fas fa-hospital"></i> Clinique du Parc</span>
-                            <span><i class="fas fa-calendar-alt"></i> 10/07/2023</span>
-                        </div>
-                        <span class="candidature-status status-acceptee">Acceptée</span>
-                    </div>
-                    <div>
-                        <button class="btn btn-outline">Détails</button>
-                    </div>
-                </div>
-                
-                <div class="candidature-item">
-                    <div class="candidature-info">
-                        <h4>Ostéosynthèse fémur</h4>
-                        <div class="candidature-meta">
-                            <span><i class="fas fa-hospital"></i> Hôpital Nord</span>
-                            <span><i class="fas fa-calendar-alt"></i> 05/07/2023</span>
-                        </div>
-                        <span class="candidature-status status-refusee">Refusée</span>
-                    </div>
-                    <div>
-                        <button class="btn btn-outline">Détails</button>
-                    </div>
-                </div>
-                
-                <div style="text-align: center; margin-top: 1rem;">
-                    <a href="MyCandidatures" style="color: var(--primary); text-decoration: none;">
-                        Voir toutes mes candidatures <i class="fas fa-arrow-right"></i>
-                    </a>
-                </div>
-                </div>
+            <div style="text-align: center; margin-top: 1rem;">
+                <a href="MyCandidatures" style="color: var(--primary); text-decoration: none;">
+                    Voir toutes mes candidatures <i class="fas fa-arrow-right"></i>
+                </a>
             </div>
         </main>
     </div>

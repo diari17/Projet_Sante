@@ -523,60 +523,23 @@
             
             <div class="interventions-container">
                 <div class="interventions-header">
-                    <h3>Mes interventions récentes</h3>
+                    <h3>Dernières interventions créées</h3>
                     <a href="CreerInterv" class="btn btn-outline">Voir toutes</a>
                 </div>
                 
-                <div class="intervention-item">
-                    <div class="intervention-info">
-                        <h4>Prothèse de hanche droite - M. Dubois</h4>
-                        <div class="intervention-meta">
-                            <span><i class="fas fa-calendar-alt"></i> 15/07/2023 - 08:30</span>
-                            <span><i class="fas fa-user-md"></i> Orthopédie</span>
-                            <span><i class="fas fa-clock"></i> 2h estimées</span>
-                        </div>
-                        <span class="intervention-status status-attribuee">Attribuée</span>
-                        <p>Chirurgien: Dr. Jean Dupont</p>
-                    </div>
-                    <div class="intervention-actions">
-                        <button class="btn btn-outline">Modifier</button>
-                        <button class="btn btn-primary">Détails</button>
-                    </div>
-                </div>
-                
-                <div class="intervention-item">
-                    <div class="intervention-info">
-                        <h4>Arthroscopie genou gauche - Mme. Lambert</h4>
-                        <div class="intervention-meta">
-                            <span><i class="fas fa-calendar-alt"></i> 17/07/2023 - 01:30</span>
-                            <span><i class="fas fa-user-md"></i> Orthopédie</span>
-                            <span><i class="fas fa-clock"></i> 1h30 estimées</span>
-                        </div>
-                        <span class="intervention-status status-non-attribuee">Non attribuée</span>
-                        <p>3 candidatures reçues</p>
-                    </div>
-                    <div class="intervention-actions">
-                        <button class="btn btn-outline">Modifier</button>
-                        <button class="btn btn-primary">Voir candidatures</button>
-                    </div>
-                </div>
-                
-                <div class="intervention-item">
-                    <div class="intervention-info">
-                        <h4>Appendicectomie - M. Petit</h4>
-                        <div class="intervention-meta">
-                            <span><i class="fas fa-calendar-alt"></i> 20/07/2023 - 09:00</span>
-                            <span><i class="fas fa-user-md"></i> Chirurgie générale</span>
-                            <span><i class="fas fa-clock"></i> 3h estimée</span>
-                        </div>
-                        <span class="intervention-status status-non-attribuee">Non attribuée</span>
-                        <p>Aucune candidature</p>
-                    </div>
-                    <div class="intervention-actions">
-                        <button class="btn btn-outline">Modifier</button>
-                        <button class="btn btn-outline">Rechercher</button>
-                    </div>
-                </div>
+                <table>
+    <thead>
+        <tr>
+            <th>Type d'intervention</th>
+            <th>Date souhaitée</th>
+            <th>Description</th>
+            <th>Urgence</th>
+            <th>Statut</th>
+            <th>Chirurgien assigné</th>
+        </tr>
+    </thead>
+    <!--  PRENDRE EN COMPTE CELA POUR LES CONTROLLER POUR POUVOIR ENUMERER LES INTERVENTIONS-->  
+</table>
             </div>
         </main>
     </div>

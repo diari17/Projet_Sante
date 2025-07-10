@@ -575,150 +575,22 @@
             <!-- Liste des propositions -->
             <div class="propositions-container">
                 <div class="propositions-header">
-                    <h3>Propositions reçues</h3>
-                    <span>5 propositions</span>
+                    <h3>Mes propositions</h3>
+                    <span>nombre propositions</span>
                 </div>
                 
-                <!-- Proposition 1 -->
-                <div class="proposition-item">
-                    <div class="proposition-header">
-                        <h3 class="proposition-title">Remplacement - Chirurgie de la hernie inguinale</h3>
-                        <span class="proposition-status status-pending">En attente</span>
-                    </div>
-                    
-                    <div class="proposition-meta">
-                        <span><i class="fas fa-hospital"></i> CHU de Bordeaux</span>
-                        <span><i class="fas fa-map-marker-alt"></i> Bordeaux (33000)</span>
-                        <span><i class="fas fa-calendar-alt"></i> Reçue le 12/06/2023</span>
-                    </div>
-                    
-                    <div class="proposition-description">
-                        <p>Le Dr. Leclerc sera absent du 15 au 20 juillet. Nous vous proposons de le remplacer pour les interventions programmées, dont une chirurgie de hernie inguinale chez un patient de 42 ans.</p>
-                    </div>
-                    
-                    <div class="proposition-details">
-                        <div class="detail-row">
-                            <span class="detail-label">Date proposée :</span>
-                            <span>18/07/2023 à 09:00</span>
-                        </div>
-                        <div class="detail-row">
-                            <span class="detail-label">Durée estimée :</span>
-                            <span>1h30</span>
-                        </div>
-                        <div class="detail-row">
-                            <span class="detail-label">Rémunération :</span>
-                            <span>850 €</span>
-                        </div>
-                        <div class="detail-row">
-                            <span class="detail-label">Contact :</span>
-                            <span>Dr. Martin - 05 56 12 34 56</span>
-                        </div>
-                    </div>
-                    
-                    <div class="proposition-actions">
-                        <button class="btn btn-outline details-btn">
-                            <i class="fas fa-eye"></i> Détails complets
-                        </button>
-                        <button class="btn btn-danger reject-btn">
-                            <i class="fas fa-times"></i> Refuser
-                        </button>
-                        <button class="btn btn-success accept-btn">
-                            <i class="fas fa-check"></i> Accepter
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- Proposition 2 -->
-                <div class="proposition-item">
-                    <div class="proposition-header">
-                        <h3 class="proposition-title">Urgence - Appendicectomie laparoscopique</h3>
-                        <span class="proposition-status status-accepted">Acceptée</span>
-                    </div>
-                    
-                    <div class="proposition-meta">
-                        <span><i class="fas fa-hospital"></i> Clinique Saint-Jean</span>
-                        <span><i class="fas fa-map-marker-alt"></i> Toulouse (31000)</span>
-                        <span><i class="fas fa-calendar-alt"></i> Reçue le 10/06/2023</span>
-                    </div>
-                    
-                    <div class="proposition-description">
-                        <p>Nous avons besoin d'un chirurgien disponible ce soir pour une appendicectomie en urgence. Le patient est un homme de 28 ans, sans antécédents particuliers.</p>
-                    </div>
-                    
-                    <div class="proposition-details">
-                        <div class="detail-row">
-                            <span class="detail-label">Date :</span>
-                            <span>Aujourd'hui à 20:00</span>
-                        </div>
-                        <div class="detail-row">
-                            <span class="detail-label">Durée estimée :</span>
-                            <span>1 heure</span>
-                        </div>
-                        <div class="detail-row">
-                            <span class="detail-label">Rémunération :</span>
-                            <span>1200 € (tarif urgence)</span>
-                        </div>
-                        <div class="detail-row">
-                            <span class="detail-label">Contact :</span>
-                            <span>Dr. Simon - 05 61 23 45 67</span>
-                        </div>
-                    </div>
-                    
-                    <div class="proposition-actions">
-                        <button class="btn btn-outline details-btn">
-                            <i class="fas fa-eye"></i> Détails complets
-                        </button>
-                        <button class="btn btn-success" disabled>
-                            <i class="fas fa-check"></i> Acceptée
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- Proposition 3 -->
-                <div class="proposition-item">
-                    <div class="proposition-header">
-                        <h3 class="proposition-title">Programmé - Prothèse totale de hanche</h3>
-                        <span class="proposition-status status-rejected">Refusée</span>
-                    </div>
-                    
-                    <div class="proposition-meta">
-                        <span><i class="fas fa-hospital"></i> Hôpital Nord</span>
-                        <span><i class="fas fa-map-marker-alt"></i> Marseille (13000)</span>
-                        <span><i class="fas fa-calendar-alt"></i> Reçue le 05/06/2023</span>
-                    </div>
-                    
-                    <div class="proposition-description">
-                        <p>Proposition pour réaliser une prothèse totale de hanche chez une patiente de 72 ans avec coxarthrose évoluée. Intervention programmée le 25/06/2023.</p>
-                    </div>
-                    
-                    <div class="proposition-details">
-                        <div class="detail-row">
-                            <span class="detail-label">Date proposée :</span>
-                            <span>25/06/2023 à 08:30</span>
-                        </div>
-                        <div class="detail-row">
-                            <span class="detail-label">Durée estimée :</span>
-                            <span>2 heures</span>
-                        </div>
-                        <div class="detail-row">
-                            <span class="detail-label">Rémunération :</span>
-                            <span>1500 €</span>
-                        </div>
-                        <div class="detail-row">
-                            <span class="detail-label">Contact :</span>
-                            <span>Dr. Lefèvre - 04 91 12 34 56</span>
-                        </div>
-                    </div>
-                    
-                    <div class="proposition-actions">
-                        <button class="btn btn-outline details-btn">
-                            <i class="fas fa-eye"></i> Détails complets
-                        </button>
-                        <button class="btn btn-danger" disabled>
-                            <i class="fas fa-times"></i> Refusée
-                        </button>
-                    </div>
-                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Type d'intervention</th>
+                            <th>Date souhaitée</th>
+                            <th>Description</th>
+                            <th>Établissement</th>
+                            <th>Statut</th>
+                        </tr>
+                    </thead>
+                    <!--  PRENDRE EN COMPTE CELA POUR LES CONTROLLER POUR POUVOIR ENUMERER LES PROPOSITIONS-->  
+                </table>
             </div>
         </main>
     </div>

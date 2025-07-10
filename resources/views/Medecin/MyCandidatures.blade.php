@@ -526,83 +526,18 @@
                 </div>
                 
                 <div id="candidaturesList">
-                    <!-- Candidature 1 -->
-                    <div class="candidature-item">
-                        <div class="candidature-info">
-                            <h4>Prothèse de hanche gauche - M. Jean Martin</h4>
-                            <div class="candidature-meta">
-                                <span><i class="fas fa-hospital"></i> CHU de Lyon</span>
-                                <span><i class="fas fa-calendar-alt"></i> 15/07/2023</span>
-                                <span><i class="fas fa-euro-sign"></i> 1 200 €</span>
-                            </div>
-                            <span class="candidature-status status-en-attente">En attente</span>
-                        </div>
-                        <div class="candidature-actions">
-                            <button class="btn btn-outline details-btn">
-                                <i class="fas fa-eye"></i> Détails
-                            </button>
-                            <button class="btn btn-danger delete-btn">
-                                <i class="fas fa-trash"></i> Annuler
-                            </button>
-                        </div>
-                    </div>
-                    
-                    <!-- Candidature 2 -->
-                    <div class="candidature-item">
-                        <div class="candidature-info">
-                            <h4>Arthroscopie du genou droit - Mme. Sophie Lambert</h4>
-                            <div class="candidature-meta">
-                                <span><i class="fas fa-hospital"></i> Clinique du Parc</span>
-                                <span><i class="fas fa-calendar-alt"></i> 10/07/2023</span>
-                                <span><i class="fas fa-euro-sign"></i> 950 €</span>
-                            </div>
-                            <span class="candidature-status status-acceptee">Acceptée</span>
-                        </div>
-                        <div class="candidature-actions">
-                            <button class="btn btn-outline details-btn">
-                                <i class="fas fa-eye"></i> Détails
-                            </button>
-                            <button class="btn btn-primary">
-                                <i class="fas fa-calendar-check"></i> Confirmer
-                            </button>
-                        </div>
-                    </div>
-                    
-                    <!-- Candidature 3 -->
-                    <div class="candidature-item">
-                        <div class="candidature-info">
-                            <h4>Ostéosynthèse fémur - M. Pierre Dubois</h4>
-                            <div class="candidature-meta">
-                                <span><i class="fas fa-hospital"></i> Hôpital Nord</span>
-                                <span><i class="fas fa-calendar-alt"></i> 05/07/2023</span>
-                                <span><i class="fas fa-euro-sign"></i> 1 500 €</span>
-                            </div>
-                            <span class="candidature-status status-refusee">Refusée</span>
-                        </div>
-                        <div class="candidature-actions">
-                            <button class="btn btn-outline details-btn">
-                                <i class="fas fa-eye"></i> Détails
-                            </button>
-                        </div>
-                    </div>
-                    
-                    <!-- Candidature 4 -->
-                    <div class="candidature-item">
-                        <div class="candidature-info">
-                            <h4>Appendicectomie - M. Thomas Petit</h4>
-                            <div class="candidature-meta">
-                                <span><i class="fas fa-hospital"></i> Clinique Saint-Louis</span>
-                                <span><i class="fas fa-calendar-alt"></i> 01/07/2023</span>
-                                <span><i class="fas fa-euro-sign"></i> 800 €</span>
-                            </div>
-                            <span class="candidature-status status-annulee">Annulée</span>
-                        </div>
-                        <div class="candidature-actions">
-                            <button class="btn btn-outline details-btn">
-                                <i class="fas fa-eye"></i> Détails
-                            </button>
-                        </div>
-                    </div>
+                    <h3>Mes candidatures</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Intervention</th>
+                                <th>Date de candidature</th>
+                                <th>Statut</th>
+                                <th>Message</th>
+                            </tr>
+                        </thead>
+                        
+                    </table>
                 </div>
             </div>
         </main>

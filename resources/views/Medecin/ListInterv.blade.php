@@ -668,121 +668,20 @@
                     </div>
                 </div>
                 
-                <!-- Intervention 1 -->
-                <div class="intervention-item">
-                    <div class="intervention-header">
-                        <h3 class="intervention-title">Prothèse de hanche gauche - M. Jean Martin</h3>
-                        <span class="intervention-specialty">Orthopédie</span>
-                    </div>
-                    
-                    <div class="intervention-meta">
-                        <span><i class="fas fa-hospital"></i> CHU de Lyon</span>
-                        <span><i class="fas fa-map-marker-alt"></i> Lyon (69000)</span>
-                        <span><i class="fas fa-calendar-alt"></i> 15/07/2023 à 08:30</span>
-                        <span><i class="fas fa-clock"></i> 2 heures estimées</span>
-                        <span class="intervention-urgency urgency-normal">Urgence normale</span>
-                    </div>
-                    
-                    <div class="intervention-description">
-                        <p>Patient de 68 ans avec antécédents d'arthrose sévère. Nécessite une prothèse totale de hanche gauche. Allergie connue à la pénicilline. Le patient présente une mobilité réduite avec douleurs importantes.</p>
-                    </div>
-                    
-                    <div class="intervention-actions">
-                        <button class="btn btn-outline details-btn">
-                            <i class="fas fa-eye"></i> Détails
-                        </button>
-                        <button class="btn btn-primary apply-btn">
-                            <i class="fas fa-paper-plane"></i> Postuler
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- Intervention 2 -->
-                <div class="intervention-item">
-                    <div class="intervention-header">
-                        <h3 class="intervention-title">Arthroscopie du genou droit - Mme. Sophie Lambert</h3>
-                        <span class="intervention-specialty">Orthopédie</span>
-                    </div>
-                    
-                    <div class="intervention-meta">
-                        <span><i class="fas fa-hospital"></i> Clinique du Parc</span>
-                        <span><i class="fas fa-map-marker-alt"></i> Toulouse (31000)</span>
-                        <span><i class="fas fa-calendar-alt"></i> 17/07/2023 à 14:00</span>
-                        <span><i class="fas fa-clock"></i> 1.5 heures estimées</span>
-                        <span class="intervention-urgency urgency-normal">Urgence normale</span>
-                    </div>
-                    
-                    <div class="intervention-description">
-                        <p>Lésion méniscale confirmée par IRM. Patient de 45 ans sans antécédents particuliers. Aucune allergie connue. L'intervention devra être réalisée sous anesthésie générale.</p>
-                    </div>
-                    
-                    <div class="intervention-actions">
-                        <button class="btn btn-outline details-btn">
-                            <i class="fas fa-eye"></i> Détails
-                        </button>
-                        <button class="btn btn-primary apply-btn">
-                            <i class="fas fa-paper-plane"></i> Postuler
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- Intervention 3 -->
-                <div class="intervention-item">
-                    <div class="intervention-header">
-                        <h3 class="intervention-title">Appendicectomie - M. Thomas Petit</h3>
-                        <span class="intervention-specialty">Chirurgie générale</span>
-                    </div>
-                    
-                    <div class="intervention-meta">
-                        <span><i class="fas fa-hospital"></i> Hôpital Saint-Louis</span>
-                        <span><i class="fas fa-map-marker-alt"></i> Paris (75010)</span>
-                        <span><i class="fas fa-calendar-alt"></i> 20/07/2023 à 09:00</span>
-                        <span><i class="fas fa-clock"></i> 1 heure estimée</span>
-                        <span class="intervention-urgency urgency-high">Urgent</span>
-                    </div>
-                    
-                    <div class="intervention-description">
-                        <p>Appendicite aiguë confirmée par échographie. Patient de 32 ans. Aucune allergie connue. Intervention à réaliser en urgence dans les 24h. Technique laparoscopique préférée.</p>
-                    </div>
-                    
-                    <div class="intervention-actions">
-                        <button class="btn btn-outline details-btn">
-                            <i class="fas fa-eye"></i> Détails
-                        </button>
-                        <button class="btn btn-primary apply-btn">
-                            <i class="fas fa-paper-plane"></i> Postuler
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- Intervention 4 -->
-                <div class="intervention-item">
-                    <div class="intervention-header">
-                        <h3 class="intervention-title">Ostéosynthèse fémur - M. Pierre Dubois</h3>
-                        <span class="intervention-specialty">Orthopédie</span>
-                    </div>
-                    
-                    <div class="intervention-meta">
-                        <span><i class="fas fa-hospital"></i> Hôpital Nord</span>
-                        <span><i class="fas fa-map-marker-alt"></i> Marseille (13000)</span>
-                        <span><i class="fas fa-calendar-alt"></i> 22/07/2023 à 10:30</span>
-                        <span><i class="fas fa-clock"></i> 3 heures estimées</span>
-                        <span class="intervention-urgency urgency-critical">Très urgent</span>
-                    </div>
-                    
-                    <div class="intervention-description">
-                        <p>Fracture fémorale suite à un accident de la route. Patient de 28 ans. Nécessite une ostéosynthèse en urgence. Le patient présente également des contusions multiples mais est stable.</p>
-                    </div>
-                    
-                    <div class="intervention-actions">
-                        <button class="btn btn-outline details-btn">
-                            <i class="fas fa-eye"></i> Détails
-                        </button>
-                        <button class="btn btn-primary apply-btn">
-                            <i class="fas fa-paper-plane"></i> Postuler
-                        </button>
-                    </div>
-                </div>
+                <h3>Liste des interventions ouvertes</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>Date souhaitée</th>
+                            <th>Description</th>
+                            <th>Urgence</th>
+                            <th>Établissement</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <!--  PRENDRE EN COMPTE CELA POUR LES CONTROLLER POUR POUVOIR ENUMERER LES INTERVENTIONS-->  
+                </table>
             </div>
         </main>
     </div>
